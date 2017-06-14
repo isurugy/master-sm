@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  contact_method: MyString
+  value: MyString
+  usr_vender_branch: one
+
+two:
+  contact_method: MyString
+  value: MyString
+  usr_vender_branch: two

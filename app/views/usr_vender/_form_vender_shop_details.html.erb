@@ -1,0 +1,86 @@
+
+<style>
+  .rectangle{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top:30px;
+  }
+  .form-merchant{
+    padding-bottom: 10px;
+  }
+  .inputs{
+    border-color: #44caff;
+    border-width: 2px;
+    height:40px;
+  }
+    #form_vender_branch{
+    }
+</style>
+
+
+<%= form_for @vender_shop_details,id:"form_vender_property", url: {action: "create_shop_details"}, remote:true do |e| %>
+    <div class="row">
+      <center><h2>Shop Details</h2></center>
+    </div>
+
+    <div class="rectangle">
+      <div class="raw">
+        <div class="col-md-6">
+          <div class="form-group form-merchant">
+            <%= e.text_field :shop_name, class: "form-control inputs",placeholder:"Your Shop Name" %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group form-merchant">
+            <%= e.text_field :specifiedArea, class: "form-control inputs",placeholder:"Specified Area (optional)" %>
+          </div>
+        </div>
+      </div>
+      <div class="raw">
+        <div class="col-md-6">
+          <div class="form-group form-merchant">
+            <%= e.text_field :website, class: "form-control inputs",placeholder:"Website (optional)" %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group form-merchant">
+            <%= e.text_field :mobile, class: "form-control inputs",placeholder:"Phone Number" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<% end %>
+
+<%= form_for @vender_branch_details,id:"form_vender_branch", url: {action: "create_branch_details"}, remote:true do |f| %>
+    <div class="rectangle">
+      <div class="raw">
+        <div class="col-md-12">
+          <div class="form-group form-merchant">
+            <%= f.text_field :address_line1, class: "form-control inputs",placeholder:"Street Address 1" %>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group form-merchant">
+            <%= f.text_field :address_line2, class: "form-control inputs",placeholder:"Street Address 2" %>
+          </div>
+        </div>
+      </div>
+      <div class="raw">
+        <div class="col-md-6">
+          <div class="form-group form-merchant">
+            <%= f.text_field :city, class: "form-control inputs",placeholder:"City" %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group form-merchant">
+            <%= f.text_field :zip_code, class: "form-control inputs",placeholder:"Postal Code" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<% end %>
+
+

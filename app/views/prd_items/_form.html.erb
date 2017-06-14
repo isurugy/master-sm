@@ -1,0 +1,530 @@
+
+<script>
+    $(function () {
+        var count = 0;
+        $(".repeatz").on('click', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            var id =  $('#images').children().last().attr('id');
+            $('#images').children().last().attr('id','img'+count);
+            //document.getElementsByClassName("image_display").attr('id',"dis-"+count);
+            $( ".image_display" ).attr( "id", "dis-"+count);
+            count = count+1;
+            console.log(id);
+        });
+    });
+    $(document).ready(function () {
+        $("#price1").on("change keyup paste click", function(){
+            $('#out').html(Math.round($(this).val()*1.05));
+            $('#selling_price').val(Math.round($(this).val()*1.05));
+        })
+    })
+
+
+    //Hide percentage discount field when click price discount field
+
+    /*function priceDiscountFieldDisable(x){
+     document.getElementById("pec_dis").disabled = true;
+     }*/
+
+    $(document).ready(function(){
+        $("#prc_dis").focusin(function(){
+            document.getElementById("pec_dis").disabled = true;
+        });
+        $("#prc_dis").focusout(function(){
+            if(!$('#prc_dis').val())
+                document.getElementById("pec_dis").disabled = false;
+        });
+    });
+
+
+    //Hide price discount field when click percentage discount field
+
+    /*function pecentageDiscountFieldDisable(x){
+     document.getElementById("prc_dis").disabled = true;
+     }*/
+
+    $(document).ready(function(){
+        $("#pec_dis").focusin(function(){
+            document.getElementById("prc_dis").disabled = true;
+        });
+        $("#pec_dis").focusout(function(){
+            if(!$('#pec_dis').val())
+                document.getElementById("prc_dis").disabled = false;
+        });
+    });
+
+    var image_click = 0;
+    function hideImage(){
+        image_click++;
+        if(image_click == 1)
+            document.getElementById("dummy02").style.display='none';
+        else
+            document.getElementById("dummy01").style.display='none';
+    }
+
+
+</script>
+
+<style>
+
+  .spec-text{
+    height: 34px;
+    border-color: #4fe4ff;
+    border-width: 2px;
+    margin-bottom: 20px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    border-radius: 10px;
+
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+  }
+
+  #sha {
+    padding-top: 90px;
+    height: 150px;
+    width: 150px;
+  }
+
+  .status_button {
+    width: 200px;
+    text-align: center;
+    background: #ffffff;
+    border:2px solid #44caff;
+  }
+
+  @media screen and (max-width: 1200px) and (min-width: 990px) {
+    .status_button {
+      width: 150px;
+    }
+  }
+
+  .btn.status_button.active {
+    background: #2080cf;
+    color: white;
+    font-style: inherit;
+    font-weight: bold;
+  }
+
+  .input_field_text_align_right{
+    text-align: right;
+  }
+
+  .input_field_text_align_center{
+    text-align: center;
+  }
+
+</style>
+<div class="row">
+  <div style="text-align: center; padding-bottom: 25px">
+    <h2 class ='cat-heading'>ITEM DETAILS</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+  </div>
+
+  <div class="col-md-8">
+    <div class="form-group">
+
+      <div class="row">
+        <div class="col-md-2" style="padding-bottom: 25px">
+          <%= p.label :item_name %>
+        </div>
+
+        <div class="col-md-8" style="padding-bottom: 25px">
+          <%= p.text_field :item_name, {placeholder: 'Item Name', class: 'form-control input_border', style:"float:right", validate: true }%>
+        </div>
+        <div class="col-md-2" style="padding-bottom: 25px">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2" style="padding-bottom: 25px">
+          <%= p.label :item_number %>
+        </div>
+        <div class="col-md-8" style="padding-bottom: 25px">
+          <%= p.text_field :item_no, {placeholder: 'Item Number (this is for your use)', class: 'form-control input_border'}%>
+        </div>
+        <div class="col-md-2" style="padding-bottom: 25px">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2" style="padding-bottom: 25px">
+          <%= p.label :item_brand %>
+        </div>
+        <div class="col-md-8" style="padding-bottom: 25px">
+          <%= p.text_field :brand, {placeholder: 'Item Brand', class: 'form-control input_border'}%>
+          <%= p.text_field :prd_type_id , id: 'item_type_field', class: 'hidden' %> <!--#####################################################-->
+        </div>
+        <div class="col-md-2" style="padding-bottom: 25px">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2" style="padding-bottom: 25px">
+          <%= p.label :item_summery %>
+        </div>
+        <div class="col-md-8" style="padding-bottom: 25px">
+          <%= p.text_area :short_description, {placeholder: 'Short description', class: 'form-control input_border', size: "20x7", validate: true}%>
+        </div>
+        <div class="col-md-2" style="padding-bottom: 25px">
+        </div>
+      </div>
+
+
+      <!-- this is the product specification starting point -->
+      <div class="row">
+        <div class="col-md-10" style="padding-bottom: 5px">
+          <h5><b>Item Specification*</b></h5>
+        </div>
+        <div class="col-md-2" style="padding-bottom: 5px">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <fieldset class="well input_border" style="background:#e5e5e5; height: auto">
+            <input type="text" id="selected_sub" class="hidden" >
+            <input type="text" id="selected_types" class="hidden">
+            <div id="sub_partial_view">
+
+            </div>
+          </fieldset>
+        </div>
+        <div class="col-md-12" style="padding-bottom: 25px">
+          <p>* Add variation by inserting a comma (blue, red, pink)</p>
+        </div>
+      </div>
+      <!-- this is the product specification end point -->
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <%= p.label :item_description %>
+        </div>
+        <div class="col-md-12" style="padding-bottom: 30px">
+          <%= p.text_area :long_description, {placeholder: 'Item Description', class: 'form-control input_border', size: "20x12", onclick:'SetVariations1()' }%>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <%= p.label :item_tags %>
+        </div>
+        <div class="col-md-12" style="padding-bottom: 30px">
+          <fieldset class="well input_border" style="background: white">
+            <p>Item tags goes here</p>
+          </fieldset>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-md-2">
+  </div>
+</div>
+<div class="row">
+  <hr style=" background-color: #4b4b4b; height: 1px;">
+</div>
+
+<div class="row">
+  <div style="text-align: center; padding-bottom: 25px">
+    <h2 class="cat-heading">ITEM IMAGES</h2>
+  </div>
+</div>
+
+<div class="row" style="height: auto">
+  <!--div class="col-md-2"></div-->
+  <div class=" " style="padding-left: 65px">
+
+    <div class = "repeating2" id="images">
+      <% @count=0%>
+      <%=  p.fields_for :prd_item_images do |i| %>
+          <%= render 'prd_item_image_fields', f: i %>
+      <% end %>
+    </div>
+    <div class="links">
+      <div class="">
+        <br/><br/>
+        <%= link_to_add_association ' ', p, :prd_item_images, class: 'btn  repeatz', id:'sha', style: 'position:relative; z-index:1; margin-left: 30px;', onclick:'hideImage()' %>
+      </div>
+      <div class=" " style="margin-top: -170px; padding-bottom: 170px">
+        <%= image_tag 'image-add.jpg', size: '180x180', style: 'border:2px solid #44caff; margin-left:16px; margin-top: 5px;'%>
+      </div>
+    </div>
+  </div>
+
+  <div class="" style="margin-top: -180px;">
+    <%= image_tag 'image-add.jpg', size: '180x180', style: 'margin-left: 290px; margin-top: -182px', id:'dummy01'%>
+  </div>
+
+  <div class="" style="margin-top: -180px;">
+    <%= image_tag 'image-add.jpg', size: '180x180', style: 'margin-left: 570px; margin-top: -10px', id:'dummy02'%>
+  </div>
+
+</div>
+
+<div class="row">
+  <hr style=" background-color: #4b4b4b; height: 1px;">
+</div>
+
+<div class="row">
+  <div style="text-align: center; padding-bottom: 25px">
+    <h2 class="cat-heading">ITEM PRICING</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2" style="padding-bottom: 25px"></div>
+  <div class="col-md-8" style="padding-bottom: 25px; display: inline-flex">
+
+    <div class="col-md-3" style="padding-top: 7px">
+      <%= p.label :item_price %>
+    </div>
+
+    <div class="col-md-3">
+      <%= p.text_field(:base_price, {placeholder: 'Rs 0.00', class: 'form-control input_border input_field_text_align_right ', id:'price1'})%>
+      <%= p.text_field(:price, {placeholder: 'Rs 0.00', class: 'form-control input_border hidden ', id:'selling_price'})%>
+    </div>
+
+    <div class="col-md-6" style="margin-top: -5px">
+      <label style=" color: #232323;  font-size: 17px; ">Selling price<sup>1</sup> :</label> &nbsp;
+      <div style="color: #0f3e6c; font-size: 25px; display: inline-flex;">Rs. <strong id="out"></strong><strong>.00</strong></div>
+    </div>
+
+  </div>
+  <div class="col-md-2" style="padding-bottom: 25px"></div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-2" style="padding-bottom: 25px"></div>
+  <div class="col-md-8" style="padding-bottom: 25px; display: inline-flex">
+
+    <div class="col-md-3">
+      <label style="padding-top: 7px">Maximum discount<sup>2</sup></label>
+    </div>
+
+    <div class="col-md-3">
+      <%= p.text_field(:price_discount, {placeholder: 'Rs 0.00', class: 'form-control input_border input_field_text_align_right', id:'prc_dis'})%>
+    </div>
+    <div class="col-md-1" style="padding-top: 7px; margin-left: -15px" >
+      <%= p.label :or %>
+    </div>
+
+    <div class="col-md-3">
+      <%= p.text_field(:percentage_discount, {placeholder: '%', class: 'form-control input_border input_field_text_align_right', id:'pec_dis',style:'margin-left:-25px'})%>
+    </div>
+
+    <div class="col-md-2">
+    </div>
+
+  </div>
+  <div class="col-md-2" style="padding-bottom: 25px"></div>
+</div>
+
+<div class="row">
+  <div class="col-md-1" style="padding-bottom: 25px"></div>
+  <div class="col-md-10" style="padding-bottom: 25px; text-align: left">
+    <div class="col-md-12" style="text-align: justify">
+      <ol>
+        <li>
+          This is the price that will be displayed to the customer.
+          It includes the bank fees and Smartmall's handling fees.
+
+            Read more at: <u style="color: #29a2e2"><a href="#">Terms and Conditions .Pricing</a></u>
+
+        </li>
+        <li>
+          Maximum Discount is the maximum that you are wiling to discount from your product.
+          This will be used by SmartMall in seasonal compaigns, promotions, etc..
+
+          Read more at: <u style="color: #29a2e2"><a href="#">Terms and Conditions .Max Discount</a></u>
+
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="col-md-1" style="padding-bottom: 25px"></div>
+</div>
+
+<div class="row">
+  <hr style=" background-color: #4b4b4b; height: 1px; ">
+</div>
+
+<div class="row">
+  <div style="text-align: center; padding-bottom: 25px">
+
+    <h2 class="cat-heading">STOCK</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2" style="padding-bottom: 25px"></div>
+  <div class="col-md-8" style="padding-bottom: 25px">
+
+    <div class="row">
+      <h4>Enter the available stock for each variation</h4>
+    </div>
+
+    <div class="row">
+      <fieldset class="well input_border" style="background: white; height: 250px">
+        <p>Item variation stock level goes here</p>
+      </fieldset>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3" style="padding-bottom: 25px">
+        <%= p.label :stock_count%>
+      </div>
+      <div class="col-md-2" style="padding-bottom: 25px">
+        <%= p.text_field(:stock_count, {placeholder: '0', class: 'form-control input_border input_field_text_align_right'})%>
+      </div>
+      <div class="col-md-7" style="padding-bottom: 25px"></div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-2">
+        <label>Item Status</label>
+      </div>
+      <div class="col-md-10" style="text-align: center">
+        <div class="btn-group" data-toggle="buttons">
+          <label class="btn active status_button">Available
+            <%= p.radio_button :availability, 'available', :checked => true %>
+            <span class="glyphicon glyphicon"></span>
+          </label>
+
+          <label class="btn dcd status_button">Coming Soon
+            <%= p.radio_button :availability, 'coming_soon' %>
+            <span class="glyphicon glyphicon"></span>
+          </label>
+
+          <label class="btn status_button">Hidden
+            <%= p.radio_button :availability, 'hidden' %>
+            <span class="glyphicon"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2" style="padding-bottom: 25px"></div>
+</div>
+
+<div class="row">
+  <hr style=" background-color: #4b4b4b; height: 1px; ">
+</div>
+
+<div class="row">
+  <div style="text-align: center; padding-bottom: 25px">
+
+    <h2 class="cat-heading">SHIPPING</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div >
+    <%=  p.fields_for :prd_within_colombo_deliveries do |i| %>
+        <%= render partial: "prd_within_colombo_delivery_field", locals: {f: i }%>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div >
+    <%=  p.fields_for :prd_greater_colombo_deliveries do |i| %>
+        <%= render partial: "prd_greater_colombo_delivery_field", locals: {f: i }%>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div >
+    <%=  p.fields_for :prd_all_island_deliveries do |i| %>
+        <%= render partial: "prd_all_island_delivery_field", locals: {f: i }%>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <hr style=" background-color: #4b4b4b; height: 1px; ">
+</div>
+
+<script>
+    function GetVariation(spec) {
+        $.ajax({
+            type: "GET",
+            url: "get_variation_list",
+            dataType: "json",
+            data: {SelectedSpec: spec},
+            success: function (result) {
+
+                function split(val) {
+                    return val.split(/,\s*/);
+                }
+
+                function extractLast(term) {
+                    return split(term).pop();
+                }
+
+                $("#" + spec)
+                // don't navigate away from the field on tab when selecting an item
+                    .bind("keydown", function (event) {
+                        if (event.keyCode === $.ui.keyCode.TAB &&
+                            $(this).autocomplete("instance").menu.active) {
+                            event.preventDefault();
+                        }
+                    })
+                    .autocomplete({
+                        minLength: 0,
+                        source: function (request, response) {
+                            // delegate back to autocomplete, but extract the last term
+                            response($.ui.autocomplete.filter(
+                                result, extractLast(request.term)));
+                        },
+
+                        //    source:projects,
+                        focus: function () {
+                            // prevent value inserted on focus
+                            return false;
+                        },
+                        select: function (event, ui) {
+                            var terms = split(this.value);
+                            // remove the current input
+                            terms.pop();
+                            // add the selected item
+                            terms.push(ui.item.value);
+                            // add placeholder to get the comma-and-space at the end
+                            terms.push("");
+                            this.value = terms.join(", ");
+                            return false;
+                        }
+                    });
+            },
+            error: function () {
+                alert("error 1")
+            }
+        });
+
+    }
+
+
+
+
+
+</script>
+

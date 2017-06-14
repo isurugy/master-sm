@@ -1,0 +1,13 @@
+
+
+<h3>All users</h3>
+
+<% @cotacts.each do |con| %>
+    <p><%= image_tag con.image ,:size => '80x80' %></p>
+    <p></p>
+    <p><%=con.email%></p>
+    <br/>
+<% end %>
+
+
+

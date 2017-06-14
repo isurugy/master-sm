@@ -1,0 +1,48 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+  <div class="row">
+    <div class="col-md-12">
+      <center><h2>Your Details</h2></center>
+    </div>
+  </div>
+
+  <div class="rectangle">
+    <div class="raw">
+      <div class="col-md-6">
+        <div class="form-group form-merchant">
+          <%= f.text_field :first_name, class: "form-control inputs",placeholder:"First Name" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group form-merchant">
+          <%= f.text_field :last_name, class: "form-control inputs",placeholder:"Last Name" %>
+        </div>
+      </div>
+    </div>
+    <div class="raw">
+      <div class="col-md-6">
+        <div class="form-group form-merchant">
+          <%= f.text_field :email, class: "form-control inputs",placeholder:"Website (optional)" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group form-merchant">
+          <%= f.text_field :mobile, class: "form-control inputs",placeholder:"Phone Number" %>
+        </div>
+      </div>
+    </div>
+    <div class="raw">
+      <div class="col-md-6">
+        <div class="form-group form-merchant">
+          <%= f.text_field :password, class: "form-control inputs",placeholder:"Website (optional)" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group form-merchant">
+          <%= f.text_field :password_confirmation, class: "form-control inputs",placeholder:"Phone Number" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+

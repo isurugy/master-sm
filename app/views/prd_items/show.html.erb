@@ -1,0 +1,359 @@
+<script>
+
+    $( document ).ready(function() {
+        $('#lightSlider').lightSlider({
+            gallery: true,
+            item: 1,
+            loop: true,
+            slideMargin: 0,
+            thumbItem: 9
+        });
+
+    });
+
+  function addToCart(){
+      var itemId = $('#item_id').text();
+      $.ajax({
+          type:"GET",
+          url:"add_to_cart",
+          dataType:"json",
+          data: {ItemId: itemId},
+          success:function(result){
+           //   alert(result);
+              alert("Item scuessfully added to the Cart");
+              getCartCount();
+          }
+      })
+  }
+
+    function getCartCount() {
+        var Url ="<%= request.base_url %>"+"/prd_items/get_cart_count";
+        $.ajax({
+            type:"GET",
+            url:Url,
+            dataType:"json",
+            success:function(result){
+                // alert(result);
+                setCartCount(result.length);
+            },
+            error: function() {
+            }
+        });
+    }
+
+
+ function setCartCount(count){
+     $('#cart_count').html(count);
+  }
+
+</script>
+<style>
+  .item_specs{
+    display:inline-flex;
+    font-size: large;
+    padding: 20px;
+  }
+    /*.cart-count{*/
+      /*width: 20px;*/
+      /*height: 20px;*/
+      /*background: red;*/
+      /*!*-moz-border-radius: 50px;*!*/
+      /*!*-webkit-border-radius: 50px;*!*/
+      /*border-radius: 50px;*/
+      /*text-align: center;*/
+    /*}*/
+
+   /* #####################################*/
+  .demo {
+    width:500px;
+  }
+  .slider_ul {
+    list-style: none outside none;
+    padding-left: 0;
+    margin-bottom:0;
+  }
+  .slider_li {
+    display: block;
+    float: left;
+    margin-right: 6px;
+    cursor:pointer;
+  }
+  .slider_image {
+    display: block;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .lightslider_left {
+    margin-top: 0;
+    margin-bottom: 10px;
+    margin-left: auto;
+  }
+
+  .show_add_to_crt_btn{
+    background-color: white;
+    color: #5acde2;
+    font-weight: bold;
+    border:3px solid #44caff;
+    width: 180px;
+  }
+
+  .show_buy_now_btn{
+    background-color: white;
+    color: #0f3e6c;
+    font-weight: bold;
+    border:3px solid #0f3e6c;
+    width: 180px;
+  }
+
+  @media screen and (max-width: 990px) {
+    .map_name_align {
+      padding-left: 53px;
+    }
+  }
+
+  @media screen and (max-width: 1200px) and (min-width: 991px) {
+    .center_slider {
+      padding-left: 40%;
+    }
+
+    .content_width{
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 990px){
+    .center_slider {
+      padding-left: 13%;
+    }
+  }
+  /*.tab-header a*/
+
+</style>
+
+<div class="container">
+
+
+<!--<div class="row">-->
+  <!--<div class="col-sm-12">-->
+    <!--<div class="pull-right">-->
+      <!--<!%= link_to "EDIT", edit_prd_item_path, class:'btn btn-success' %>-->
+      <!--<!%= link_to "BACK", prd_items_path, class:'btn btn-warning' %>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="col-md-6">
+      <div class="container center_slider">
+        <div class="demo">
+          <ul id="lightSlider" class="lightslider_left slider_ul">
+            <% @images.each do |img| %>
+                <li data-thumb="<%= img.image %>" class="slider_li">
+                  <%= image_tag img.image, class: 'slider_image' %>
+                </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 content_width">
+
+      <h3><%= @item.item_name %></h3>
+
+      <div class ='hidden' id="item_id">
+        <%= @item.id %>
+      </div>
+
+      <div class="row">
+        <hr style=" background-color: #4b4b4b; height: 1px;">
+      </div>
+
+      <p>
+        <!--span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <span class="glyphicon glyphicon-star"></span>
+        <u>23 Customer Reviews</u--> | Sold By : <u style="color: #1c94c4"><strong><%= @item.brand %></strong></u>
+      </p>
+
+      <br/>
+
+
+
+      <!--h4>Item no: <!--%= @item.item_no %></h4><br/-->
+      <p style="text-align: justify"><%= @item.short_description %></p><br/>
+
+      <div class="col-md-12">
+        <div class="row" style="">
+
+          <div class="pull-right">
+            <p><strong style="color: #2aa4e2"><%= @item.stock_count %> </strong><strong>Available</strong></p>
+          </div>
+          <div class="" style="display: inline-flex">
+            <label>Select Quentity: </label>
+          </div>
+
+        </div>
+      </div>
+
+      <br/>
+
+      <div class="row" style="display: inline-flex">
+        <div class="col-md-4">
+          <h3 style="color: #0f3e6c; display: inline-flex; font-weight: bold"><%= number_to_currency(@item.price, unit:'Rs. ') %></h3>
+        </div>
+        <div class="col-md-4">
+          <input type = "button" value = "ADD TO CART" class="btn show_add_to_crt_btn btn-lg" onclick="addToCart()">
+        </div>
+        <div class="col-md-4">
+          <%= button_tag "BUY NOW", class: "btn show_buy_now_btn btn-lg", disabled: 'true'%>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <hr style=" background-color: #4b4b4b; height: 1px;">
+</div>
+
+
+
+<div class="row">
+
+
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-10">
+    <ul class="nav nav-tabs nav-justified">
+      <li class="active"><a data-toggle="tab" href="#long_description" > <h4>Details</h4></a></li>
+      <li class="disabled"><a data-toggle="tab" href="" disabled="disable"><h4>Specifications</h4></a></li>
+      <li class="disabled"><a data-toggle="tab" href=""><h4>Warranty & Returns</h4></a></li>
+      <li><a data-toggle="tab" href="#shipping"><h4>Shipping</h4></a></li>
+    </ul>
+  </div>
+  <div class="col-md-1">
+  </div>
+
+
+
+  <!---------------------------------- Tab Content -------------------------------->
+
+
+  <div class="tab-content">
+
+    <!------------------------ Details ---------------------------->
+    <div id="long_description" class="tab-pane fade in active">
+      <div class="row" >
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+          <fieldset class=" input_border" style=" height: auto; text-align: justify">
+            <p><br/><br/><%= @item.long_description %></p>
+          </fieldset>
+        </div>
+        <div class="col-md-2">
+        </div>
+      </div>
+    </div>
+    <!--------------------- End Details -------------------------->
+
+    <!-------------------- Specification ------------------------->
+    <div id="item_specs" class="tab-pane fade">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-8">
+            <fieldset class=" input_border" style=" height: 300px">
+              <p>Item specifications goes here</p>
+            </fieldset>
+          </div>
+          <div class="col-md-2">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!------------------ End Specification ----------------------->
+
+    <!----------------- Warranty & Returns ----------------------->
+    <div id="warrenty" class="tab-pane fade">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-8">
+            <fieldset class="input_border" style=" height: 300px">
+              <p>Warranty & Returns goes here</p>
+            </fieldset>
+          </div>
+          <div class="col-md-2">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--------------- End Warranty & Returns ----------------->
+
+    <!--------------------- Shipping ------------------------->
+    <div id="shipping" class="tab-pane fade">
+      <div class="row">
+        <div class="col-md-12">
+
+          <% @within_colombo_deliveries.each do |place| %>
+            <% if !@within_colombo_deliveries.empty? %>
+              <%= render 'show_prd_within_colombo_delivery_field', place: place %>
+            <% end %>
+          <% end %>
+
+          <% @greater_colombo_deliveries.each do |place| %>
+            <% if !@greater_colombo_deliveries.empty? %>
+              <%= render 'show_prd_greater_colombo_delivery_field', place: place %>
+            <% end %>
+          <% end %>
+
+
+          <% !@all_island_deliveries.each do |place| %>
+            <% if @all_island_deliveries.empty? %>
+              <%= render 'show_prd_all_island_delivery_field', place: place %>
+            <% end %>
+          <% end %>
+
+
+        </div>
+      </div>
+    </div>
+    <!------------------ End Shipping ------------------------->
+
+  </div>
+  <!------------------------------- Tab Content End ------------------------------>
+</div>
+
+
+
+<br/>
+
+<!--
+
+<!--% if (@item.percentage_discount)  %>
+    <h4>Discount: <!--%= @item.percentage_discount %></h4><br/>
+<!--% else %>
+    <h4>Discount: <!--%= @item.price_discount %></h4>
+<!--% end %>
+
+<div class="row">
+  <fieldset class="well input_border" style="background: white; height: 250px">
+    <p>Item variation stock level goes here</p>
+  </fieldset>
+</div>
+
+-->
+
+</div>

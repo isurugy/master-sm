@@ -1,0 +1,111 @@
+<style>
+  .spec-plus{
+    height: 30px;
+    border-color: #44caff;
+    border-width: 2px 2px 2px 0;
+    background-color: #ffffff;
+  }
+</style>
+<script>
+
+
+    function GetVariation(spec,type_name) {
+        $.ajax({
+            type: "GET",
+            url: "test",
+            dataType: "json",
+            data: {SelectedSpec: spec, SelectedType: type_id},
+            success: function (result) {
+                alert(result);
+
+                function split(val) {
+                    return val.split(/,\s*/);
+                }
+
+                function extractLast(term) {
+                    return split(term).pop();
+                }
+
+                $("#" + spec)
+                // don't navigate away from the field on tab when selecting an item
+                    .bind("keydown", function (event) {
+                        if (event.keyCode === $.ui.keyCode.TAB &&
+                            $(this).autocomplete("instance").menu.active) {
+                            event.preventDefault();
+                        }
+                    })
+                    .autocomplete({
+                        minLength: 0,
+                        source: function (request, response) {
+                            // delegate back to autocomplete, but extract the last term
+                            response($.ui.autocomplete.filter(
+                                result, extractLast(request.term)));
+                        },
+
+                        //    source:projects,
+                        focus: function () {
+                            // prevent value inserted on focus
+                            return false;
+                        },
+                        select: function (event, ui) {
+                            var terms = split(this.value);
+                            // remove the current input
+                            terms.pop();
+                            // add the selected item
+                            terms.push(ui.item.value);
+                            // add placeholder to get the comma-and-space at the end
+                            terms.push("");
+                            this.value = terms.join(", ");
+                            return false;
+                        }
+                    });
+
+
+
+            },
+            error: function () {
+                alert("error")
+            }
+        });
+
+    }
+
+
+
+</script>
+
+    <%= f.number_field :prd_sub_category_id, id:"sub_cat_id", class:"hidden" %>
+    <div class="raw">
+      <div class="col-md-12">
+        <div class="form-group form-merchant">
+          <div class="col-md-2">
+            <b>Material:</b>
+          </div>
+          <div class="col-md-8">
+            <%=f.text_field :material,id:'material', placeholder: 'material', :class => 'form-control spec-text', onclick:"GetVariation('material','Towels & Washcloths')" %>
+          </div>
+          <div class="col-md-2">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="raw">
+      <div class="col-md-12">
+        <div class="form-group form-merchant">
+          <div class="col-md-2">
+            <b>Color:</b>
+          </div>
+          <div class="col-md-8">
+            <div class="input-group">
+              <%=f.text_field :color,id:'color' , class: 'form-control spec-text', placeholder:'color' , onclick:"GetVariation('color','Towels & Washcloths')" %>
+              <div class="input-group-btn">
+                <button type="button" class="btn spec-plus">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+          </div>
+        </div>
+      </div>
+    </div>
+

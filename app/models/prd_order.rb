@@ -1,0 +1,2 @@
+class PrdOrder < ApplicationRecord
+end

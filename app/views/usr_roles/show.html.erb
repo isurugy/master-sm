@@ -1,0 +1,17 @@
+<div class="container" >
+<hr>
+<h2>Permissions</h2>
+<hr>
+
+  <table>
+  <% @permissions.each do |permission| %>
+        <tr>
+          <td>
+            <h4><%= permission.permission_name %> </h4>
+          </td>
+        </tr>
+  <% end %>
+
+  </table>
+</div>
+</div>

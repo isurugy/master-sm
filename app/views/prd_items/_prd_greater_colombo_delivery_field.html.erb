@@ -1,0 +1,62 @@
+<div id="map02">
+  <div class="row">
+    <div class="col-md-2" style="padding-bottom: 25px"></div>
+
+    <div class="col-md-8" style="padding-bottom: 25px">
+
+
+
+      <div class="row">
+        <h4>Delivery within greater Colombo</h4>
+      </div>
+      <div class="row" style="padding-bottom: 30px">
+        <div class="input_border" style="background: white; border-style: double; display: inline-flex; height: 242px; width: 100%">
+          <div class="col-md-8"style="padding: 35px 45px 20px 45px ">
+
+            <div class="row" style="padding-bottom: 25px">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+                <%= f.label :delivery_period %>
+              </div>
+              <div class="col-md-4">
+                <%= f.text_field(:delivery_period, {placeholder: '0', class: 'form-control input_border input_field_text_align_right'})%>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+
+            <div class="row" style="padding-bottom: 25px">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+                <%= f.label :delivery_rate %>
+              </div>
+              <div class="col-md-4">
+                <%= f.text_field(:delivery_rate, {placeholder: 'Rs. 0.00', class: 'form-control input_border input_field_text_align_right'})%>
+              </div>
+              <div class="col-md-2">
+                <%= f.hidden_field :place, :value => 'within_colombo' %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-10">
+                <p>Read details area list <a href="#">here</a></p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="">
+            <div>
+              <%= image_tag("all_island_map.JPG", :size => 17*14, style: 'margin-left:140px')%>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-2" style="padding-bottom: 25px"></div>
+  </div>
+</div>

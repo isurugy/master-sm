@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>Add new Permission</h1><br>
+
+  <hr>
+
+  <%= form_for(@permission) do |p| %>
+
+
+      <%= p.label(:permission_name) %>
+      <%= p.text_field(:permission_name, {:placeholder => "permission",:class => 'form-control'})%><br>
+
+
+      <%= p.submit "Create", class: "btn btn-success" %>
+
+  <% end %>
+
+  <br/>
+  <hr>
+
+  <div class="row" style="padding-bottom: 200px">
+    <div class="col-sm-4">
+      <%= link_to "Back", usr_permissions_path, class:'btn btn-info', style: 'color: white' %>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+    </div>
+  </div>
+</div>
+
+

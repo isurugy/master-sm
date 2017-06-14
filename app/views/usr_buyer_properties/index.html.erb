@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Usr Buyer Properties</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Anniversary</th>
+      <th>Usr contact</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @usr_buyer_properties.each do |usr_buyer_property| %>
+      <tr>
+        <td><%= usr_buyer_property.anniversary %></td>
+        <td><%= usr_buyer_property.usr_contact %></td>
+        <td><%= link_to 'Show', usr_buyer_property %></td>
+        <td><%= link_to 'Edit', edit_usr_buyer_property_path(usr_buyer_property) %></td>
+        <td><%= link_to 'Destroy', usr_buyer_property, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Usr Buyer Property', new_usr_buyer_property_path %>

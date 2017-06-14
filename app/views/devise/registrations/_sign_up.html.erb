@@ -1,0 +1,330 @@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
+
+<style>
+  .pointer {
+    content: '';
+    position: fixed;
+    top: -9px;
+    margin-right: 4px;
+    margin-left: 136px;
+    margin-top: -14px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 6px solid transparent;
+    border-bottom: 18px solid #ffffff;
+  }
+  .login-area{
+    width: 240px;
+    padding: 5px;
+  }
+  .signup_btn{
+    background: #fcd819;
+    border: transparent;
+    margin-left: 25%;
+    color: white;
+  }
+  .signup_btn:hover{
+    background: yellow;
+  }
+    .signin-btn{
+      background: #53a2f6;
+      border: transparent;
+      padding: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-left: 25%;
+      color: white;
+    }
+
+    .forget-pass{
+      font-size: 10px;
+      margin-left: 45%;
+      color: #53a2f6;
+    }
+
+  .forget-pass:visited{
+    color: #53a2f6;
+  }
+
+  .modal-content{
+    width: 100%;
+    padding-left: 15px;
+  }
+
+   .modal-content .modal-body .container{
+     width: 100%;
+   }
+
+   #loginPopup .form-group{
+     border: 2px solid #44caff;
+     width: 85%;
+     margin-bottom: -4px;
+     margin-top: 6px;
+  }
+
+  #signUpPopup .form-group{
+    border: 2px solid #fcd819;
+    width: 85%;
+  }
+
+  .password-instructions{
+    font-size: 9px;
+    font-weight: bold;
+    color: #b4b4b4;
+    line-height: 112%;
+    margin-top: -10px;
+    width: 200px;
+  }
+
+    .stay-signed-in{
+      display: inline-block;
+      max-width: 100%;
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-style: italic;
+      color: #b4b4b4;
+      font-size: 11px;
+    }
+
+  .email-validation{
+    font-size: 9px;
+    font-weight: bold;
+    color: red;
+    line-height: 112%;
+    margin-top: 6px;
+    width: 200px;
+  }
+
+  #new_usr_contact label.error {
+    color:red;
+  }
+  #new_usr_contact input.error {
+    border:1px solid red;
+  }
+    #usr_contact_password-error{
+      padding-bottom: 5px;
+    }
+
+</style>
+<script>
+
+    $(document).ready(function(){
+          $(".email-field").on("focusout keydown",function(){
+              validateEmail("email-field");
+        });
+//
+//        $(".email-field-sign-up").on("focusout keydown",function(){
+//            validateEmail("email-field-sign-up");
+//        });
+
+//        $("#new_usr_contact1").validate({
+//            debug: true,
+//            rules: {
+//              "usr_contact[email]": {required: true, email: true},
+//              "usr_contact[password]": {required: true, minlength: 8}
+////              "usr_contact[password_confirmation]": {required: true, equalTo: "#usr_contact_password"}
+//            }
+//        });
+//
+        $("#new_usr_contact").validate({
+            debug: true,
+            rules: {
+                "usr_contact[email]": {required: true, email: true},
+                "usr_contact[password]": {required: true, minlength: 8},
+                "usr_contact[password_confirmation]": {required: true, equalTo: "#usr_contact_password"}
+            },
+            submitHandler: function(form) { form.submit(); }
+        });
+    });
+
+    function validateEmail(val) {
+        var x = document.getElementsByClassName(val)[0].value;
+        var atpos = x.indexOf("@");
+        var dotpos = x.lastIndexOf(".");
+        if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+            $("."+val).css("border-color", "red");
+
+            if(val=="email-field"){
+                $(".email-validation").text("* Not a valied email");
+            }
+
+            return false;
+        }
+        else {
+            if(val=="email-field"){
+                $("."+val).css("border-color", "#44caff");
+                $(".email-validation").text("");
+            }
+            else if(val=="email-field-sign-up"){
+                $("."+val).css("border-color", "#fcd819");
+            }
+        }
+    }
+
+    function validatePassword(){
+
+        if (/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{7,15})$/.test($(".pass-signup").val())) {
+            // Successful match
+            $(".pass-signup").css("border-color", "#fcd819");
+            $(".password-instructions").css("color", "#b4b4b4");
+            //alert(re.test(str));
+        } else {
+            // Password doesn't contain at least one capital letter
+            $(".pass-signup").css("border-color", "red");
+            $(".password-instructions").css("color", "red");
+        }
+    }
+
+
+    function checkPassword()
+    {
+     var str= $(".pass-signup").val
+        var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}/;
+        if (re.test(str)){
+            $(".pass-signup").css("border-color", "#fcd819");
+           // alert(re.test(str));
+        }
+        else{
+            $(".pass-signup").css("border-color", "red");
+        }
+        return re.test(str);
+    }
+
+    function closeSignUp(){
+        $('#signUpPopup').modal('hide');
+        $('#loginPopup').modal('show');
+        //$(".close").click();
+    }
+
+    function closeSignIn(){
+        $('#loginPopup').modal('hide');
+        $('#signUpPopup').modal('show');
+    }
+
+
+</script>
+
+<!-- Modal -->
+<div class="modal fade in" id="signUpPopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class = "pointer"></div> <!-- triangular pointer for the modal -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="closeButton" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Sign up</h4>
+      </div>
+      <div class="modal-body">
+
+        <!--h2>Sign up</h2-->
+
+        <div class="container" style="padding-right: 0">
+
+          <!-- tab for gather buyer data-->
+          <div class="tab-content" style="border: none">
+            <div id="home" class="tab-pane fade in active">
+
+              <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+                  <%= devise_error_messages! %>
+
+                  <div class="field">
+                    <!--%= f.label :email %--><br />
+                    <%= f.email_field :email, autofocus: true,:class => 'form-group email-field-sign-up', :placeholder=>'  Email', :validate => true%>
+
+                  </div>
+
+                  <div class="field">
+                    <!--%= f.label :password %-->
+                    <% if @minimum_password_length %>
+                        <em>(<%= @minimum_password_length %> characters minimum)</em>
+                    <% end %><br />
+                    <%= f.password_field :password, autocomplete: "off" ,:class => 'form-group pass-signup', :placeholder=>'  Password' , :onkeydown=>"" %>
+                    <p class="password-instructions"> Your password should be at least 8 characters long, containing lowercase and uppercase character and at least one number and one symbol.</p>
+                  </div>
+
+                  <div class="field">
+                    <!--%= f.label :password_confirmation %--><br />
+                    <%= f.password_field :password_confirmation, autocomplete: "off" ,:class => 'form-group',:placeholder=>'  Re-type Password', :validate => true %>
+                  </div>
+
+                  <div class="actions">
+                    <%= f.submit "SIGN UP", :class => 'btn btn-primary signup_btn'%>
+                  </div>
+              <% end %>
+              <!--button type="button" class="btn btn-primary" id="login_btn" onclick ="closeSignUp()">Login</button-->
+              <!--%=render :partial => 'devise/shared/other_links' %-->
+            </div>
+          </div>
+        </div>
+        <div
+        class="fb-like"
+        data-share="true"
+        data-width="450"
+        data-show-faces="true">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="loginPopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class = "pointer"></div> <!-- triangular pointer for the modal -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <!--h4 class="modal-title" id="myModalLabel">Sign in</h4-->
+      </div>
+      <div class="modal-body">
+        <!--h2>Login</h2-->
+
+        <div class="container" style="padding-right: 0">
+
+          <!-- tab for gather buyer data-->
+          <div class="tab-content" style="border: none">
+            <div id="home" class="tab-pane fade in active login-area">
+              <!--h2>Log in</h2-->
+
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                  <div class="field">
+                    <!--%= f.label :email %><br -->
+                    <%= f.email_field :email, autofocus: true, :placeholder=>'  Email or User Name',:class => 'form-group email-field', :validate => true %>
+                    <p class="email-validation"> </p>
+                  </div>
+
+                  <div class="field">
+                    <!--%= f.label :password %--><br>
+                    <%= f.password_field :password, autocomplete: "off" , :placeholder=>'  Password',:class => 'form-group', :validate => true%>
+
+                    <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+                        <%= link_to "Forgot password?", new_password_path(resource_name), :class=>'forget-pass' %><br />
+                    <% end -%>
+                  </div>
+
+                  <% if devise_mapping.rememberable? -%>
+                      <div class="field">
+                        <%= f.check_box :remember_me %>
+                        <%= f.label :stay_signed_in , class: 'stay-signed-in'%>
+                      </div>
+                  <% end -%>
+
+                  <div class="actions">
+                    <%= f.submit "SIGN IN", :class=>'signin-btn'%>
+                  </div>
+              <% end %>
+
+            </div>
+            <%= render "devise/shared/other_links" %>
+            <!--%= link_to "SIGN IN", new_usr_contact_registration_path, :id=>"ee",  'data-toggle' => "modal", 'data-target' => "#loginPopup" , :class=>"button"  %><br /-->
+            <button type="button" class="btn signup_btn" id="login_btn" onclick ="closeSignIn()">SIGN UP</button>
+          </div>
+        </div>
+        <div class="fb-like" data-share="true" data-width="450" data-show-faces="true">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

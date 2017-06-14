@@ -1,0 +1,2 @@
+class PrdVariationItem < ApplicationRecord
+end

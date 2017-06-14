@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Card name:</strong>
+  <%= @usr_buyer_payment_method.card_name %>
+</p>
+
+<p>
+  <strong>Encrypted card number:</strong>
+  <%= @usr_buyer_payment_method.encrypted_card_number %>
+</p>
+
+<p>
+  <strong>Encrypted cvv:</strong>
+  <%= @usr_buyer_payment_method.encrypted_cvv %>
+</p>
+
+<p>
+  <strong>Encrypted expiry date:</strong>
+  <%= @usr_buyer_payment_method.encrypted_expiry_date %>
+</p>
+
+<%= link_to 'Edit', edit_usr_buyer_payment_method_path(@usr_buyer_payment_method) %> |
+<%= link_to 'Back', usr_buyer_payment_methods_path %>

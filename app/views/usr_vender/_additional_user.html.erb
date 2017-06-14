@@ -1,0 +1,128 @@
+<style>
+  .long-multiselect__outer {
+    border: 2px groove  #44caff;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .long-multiselect__outer .multiselect-selected-text {
+    text-align: center;
+    padding-left: 1px;
+  }
+
+  .multiselect-container.dropdown-menu {
+    max-width: 100%;
+  }
+
+  .multiselect-container.dropdown-menu li a label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*white-space: nowrap;*/
+  }
+
+  .item-div{
+    min-height: 70px;
+    min-width: 120px;
+    padding-right: 0;
+    padding-left: 0;
+    padding: 10px;
+  }
+
+  .input-group-addon img{
+      width: 50px;
+    }
+
+  .col-md-12 .col-md-6{
+    padding-left: 0px;
+  }
+
+  h3.subheading{
+    text-align: center;
+  }
+
+  p.file_field {
+    border: 2px solid #66c2ff;
+  }
+
+  .pageRole{
+    padding-left: 25px;
+  }
+
+  .well{
+  min-height: 100px !important;
+  }
+
+  .myDivs-col{
+  padding: 1px;
+  }
+
+  .btn-add {
+    display:block;
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    border: 2px dotted  #44caff;
+    background:white;
+    font-size:30px;
+    color:#44caff;
+    padding-top: 0px;
+  }
+
+</style>
+<script>
+    $( document ).ready(function() {
+        $('#repeatingz').bind('cocoon:before-insert', function(e, repetediv) {
+            // ... do something
+            console.log("in working");
+        });
+    });
+
+    $(document).on('click', '.myDivs', function () {
+        $(this).toggleClass('selected');
+        var test = $(this).parents(".repetediv")[0].id;
+        console.log("wanted "+test);
+        var selectedRoles = $('#'+test+' .selected').map(function() {
+            var divId = this.id;
+            var parentDivId = $(this).parents(".repetediv")[0].id;
+            //var roleNames = $('#'+divId+' h5').text();
+            var roleNames = $('#'+parentDivId).find('#'+divId+' h5').text();
+            return roleNames;
+        }).get();
+
+        console.log(selectedRoles);
+        var top = $(this).parents(".repetediv")[0].getElementsByClassName("rolefield")[0].id;
+        // console.log('top '+top);
+        document.getElementById(top).value = selectedRoles;
+        // $("#"+top).val(selectedRoles);
+    });
+
+    $(function () {
+        var count = 0;
+        $(".repeatz").on('click', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            var id =  $('#repeatingz').children().last().attr('id');
+            $('#repeatingz').children().last().attr('id','test'+count);
+            count = count+1;
+            console.log(id);
+        });
+    });
+
+</script>
+
+<div class="col-md-12">
+  <h3 class="subheading">ADDITIONAL USER</h3>
+</div>
+<%= form_for @vender_shop_details,id:"form_vender_property", url: {action: "create_shop_details"} do |f| %>
+    <% @count =0 %>
+    <% @patialCount = 0%>
+    <div class = "repeating" id = "repeatingz">
+      <% f.fields_for :usr_additional_users do |builder| %>
+          <% render 'usr_additional_user_fields', f: builder%>
+      <%end%>
+    </div>
+    <!--<button class="repeat btn-add">+</button>-->
+    <%= link_to_add_association 'Add new', f , :usr_additional_users , class: 'btn btn-primary repeatz',
+                                data:{association_insertion_node: '.repeating',association_insertion_method: :append } %>
+    <%= f.submit({:value=>'submit',:class => 'btn btn-primary'})%>
+<% end %>

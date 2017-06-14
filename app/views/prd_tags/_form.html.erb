@@ -1,0 +1,22 @@
+<%= form_for(prd_tag) do |f| %>
+  <% if prd_tag.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(prd_tag.errors.count, "error") %> prohibited this prd_tag from being saved:</h2>
+
+      <ul>
+      <% prd_tag.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,137 @@
+
+<style>
+  /* body{padding-top:20px;} */
+  .carousel-sub {
+    margin-bottom: 0;
+    padding: 0 40px 30px 40px;
+  }
+  /* The controlsy */
+  .carousel-sub-control {
+    /*left: -12px;*/
+    /*height: 40px;*/
+    /*width: 40px;*/
+    /*background: none repeat scroll 0 0 #222222;*/
+    /*border: 4px solid #FFFFFF;*/
+    /*border-radius: 23px 23px 23px 23px;*/
+    /*margin-top: 90px;*/
+
+    left: -12px;
+    height: 0;
+    width: 0;
+    margin-top: 125px;
+  }
+  .carousel-sub-control.right {
+    /* right: -12px; */
+    right: -310px;
+  }
+
+  .carousel-sub-control.left{
+    margin-left: -315px;
+  }
+
+
+  /* The indicators */
+  .carousel-sub-indicators {
+    right: 50%;
+    top: auto;
+    bottom: -10px;
+    margin-right: -19px;
+  }
+  /* The colour of the indicators */
+  .carousel-sub-indicators li {
+    background: #cecece;
+  }
+  .carousel-sub-indicators .active {
+    background: #428bca;
+  }
+
+  .carasol-sub-size{
+    position: relative;
+    overflow: hidden;
+    width: 158%;
+    margin-left: -295px;
+  }
+
+  .col-2-custom{
+    width: 20%;
+  }
+
+  .carasol-arrows{
+    font-size: 36px;
+    color: #666;
+  }
+
+  .carasol-arrows:visited{
+    color: #666;
+  }
+
+  .container-customise{
+    margin-bottom: 30px;
+  }
+
+</style>
+
+<script>
+    $(document).ready(function() {
+        $('#Carousel').carousel({
+            interval: 5000
+        })
+    });
+
+</script>
+
+<div class="container container-customise">
+  <div class="row">
+    <div class="col-md-12">
+
+
+      <div id="Carousel" class="carousel carousel-sub slide">
+
+        <ol class="carousel-indicators carousel-sub-indicators">
+        <li data-target="#Carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#Carousel" data-slide-to="1"></li>
+        </ol>
+
+        <!-- Carousel items -->
+        <div class="carousel-inner carasol-sub-size">
+
+          <div class="item active">
+            <div class="row">
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><%=image_tag 'comombo_map.jpg', alt: 'image', style: 'max-width:100%; height:280px'%></a></div>
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><%=image_tag 'camera.JPG', alt: 'image', style: 'max-width:100%; height:280px'%></a></div>
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><%=image_tag 'sink.jpeg', alt: 'image', style: 'max-width:100%; height:280px'%></a></div>
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><%=image_tag '3.jpg', alt: 'image', style: 'max-width:100%; height:280px'%></a></div>
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><%=image_tag 'shower.jpg', alt: 'image', style: 'max-width:100%; height:280px'%></a></div>
+            </div><!--.row-->
+          </div><!--.item-->
+
+          <div class="item">
+            <div class="row">
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><%=image_tag 'comombo_map.jpg', alt: 'image', style: 'max-width:100%; height:280px'%></a></div>
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><%=image_tag 'camera.JPG', alt: 'image', style: 'max-width:100%; height:280px'%></a></div>
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><%=image_tag 'sink.jpeg', alt: 'image', style: 'max-width:100%; height:280px'%></a></div>
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><%=image_tag '3.jpg', alt: 'image', style: 'max-width:100%; height:280px'%></a></div>
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><%=image_tag 'shower.jpg', alt: 'image', style: 'max-width:100%; height:280px'%></a></div>
+            </div><!--.row-->
+          </div>
+
+          <!--div class="item">
+            <div class="row">
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><img src="http://placehold.it/300x300" alt="Image" style="max-width:100%;"></a></div>
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><img src="http://placehold.it/300x300" alt="Image" style="max-width:100%;"></a></div>
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><img src="http://placehold.it/300x300" alt="Image" style="max-width:100%;"></a></div>
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><img src="http://placehold.it/300x300" alt="Image" style="max-width:100%;"></a></div>
+              <div class="col-md-2 col-2-custom"><a href="#" class="thumbnail"><img src="http://placehold.it/300x300" alt="Image" style="max-width:100%;"></a></div>
+            </div><!--.row-->
+          <!--/div><!--.item-->
+
+        </div><!--.carousel-inner-->
+        <a data-slide="prev" href="#Carousel" class="left carousel-control carousel-sub-control"><span class="glyphicon glyphicon-menu-left carasol-arrows"></span></a>
+        <a data-slide="next" href="#Carousel" class="right carousel-control carousel-sub-control"><span class="glyphicon glyphicon-menu-right carasol-arrows"></span></a>
+      </div><!--.Carousel-->
+
+    </div>
+  </div>
+</div>
+
+

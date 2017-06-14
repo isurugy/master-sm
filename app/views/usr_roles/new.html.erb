@@ -1,0 +1,53 @@
+<div class="container">
+  <h1>Add new Role</h1><br>
+
+  <hr>
+
+  <%= form_for(@role) do |m| %>
+      <% @count =0 %>
+
+      <%= m.label(:role_name) %>
+      <%= m.text_field(:role_name, {:placeholder => "Enter role name",:class => 'form-control'})%><br>
+
+      <%= m.label(:description)%>
+      <%= m.text_area(:description, {:placeholder => "Enter small description",:class => 'form-control'}) %><br>
+
+      <%= fields_for(@role_permissions) do |rp| %>
+          <div>
+            <%= rp.label(:choose_permissions)%><br/>
+            <table style="width: 35%">
+              <%= collection_check_boxes(:usr_permissions, :id, UsrPermission.all, :id, :permission_name, {}, {:multiple => true}) do |x|%>
+                  <% @count += 1 %>
+                  <tr>
+                    <td>
+                      <%= x.check_box %>  <%= x.label %>
+                    </td>
+                    <td>
+                      <%@test = 'x'+@count.to_s %>
+                      <%= select_tag(@test, options_for_select([['Hide','hide'], ['Readonly', 'read'], ['Edit', 'edit']])) %>
+                    </td>
+                  </tr>
+              <% end %>
+            </table>
+          </div>
+      <% end %>
+      <br/>
+
+      <%= m.submit "Create Role", class: "btn btn-success" %>
+
+  <% end %>
+
+  <br/><hr>
+
+
+  <div class="row" style="padding-bottom: 200px">
+    <div class="col-sm-4">
+      <%= link_to "Back", usr_roles_path, class:'btn btn-info', style: 'color: white' %>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+    </div>
+  </div>
+</div>
+
+

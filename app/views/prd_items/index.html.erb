@@ -1,0 +1,181 @@
+<style>
+  #imgwrap{
+    position:relative;
+    overflow:hidden;
+  }
+
+  .custom_size{
+    display: block;
+    max-width: 100%;
+  }
+
+  .itm_img{
+      width: 400px !important;
+      height: 200px !important;
+  }
+
+  .change_size{
+    width: 110px;
+    height: 30px;
+  }
+
+  .itm_btns{
+    padding-left: 10px;
+    margin-top: -58px;
+  }
+
+    .itm_add_to_crt_btn{
+      background-color: white;
+      color: #5acde2;
+      font-weight: bold;
+      border:2px solid #44caff;
+    }
+
+  .itm_buy_now_btn{
+    background-color: white;
+    color: #0a236c;
+    font-weight: bold;
+    border:2px solid #0a236c;
+  }
+   .thubmnail_remove_border{
+     border: none;
+     -webkit-box-shadow: none;
+     width: 250px;
+   }
+
+   .img_border{
+     border: 2px solid #aeaeae;
+
+   }
+
+    body{
+      background-color: white !important;
+    }
+
+    .stars{
+      color: #fcce3c;
+      font-size: large;
+    }
+
+  .con{
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+
+  .thubmnail_remove_border{
+    border: none;
+    -webkit-box-shadow: none;
+    width: 250px;
+  }
+
+  .alert {
+    padding: 0px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 4px;
+  }
+
+  .con2{
+    padding-left: 80px;
+    padding-right: 80px;
+    background:  #e8e7e7; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#efefef, #e8e7e7); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#efefef, #e8e7e7); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#efefef, #e8e7e7); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#efefef, #e8e7e7); /* Standard syntax (must be last) */
+  }
+
+  .container-custom{
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .container-custom .col-sm-3 {
+      width: auto;
+    }
+  }
+
+  @media (min-width: 768px){
+    .container-custom .col-sm-3 {
+      width: auto;
+    }
+  }
+
+  @media only screen and (min-width: 1688px) {
+    .container-custom {
+      width: 1450px;
+    }
+  }
+
+  @media screen and (max-width: 1315px) and (min-width: 1199px) {
+    .container-custom {
+      width: 1145px;
+      margin-left: 14%;
+    }
+  }
+  @media only screen and (max-width: 991px) {
+    .container-custom {
+      margin-left: 18%;
+    }
+  }
+
+</style>
+<!--render category carousel-->
+<div class="con">
+<%= render "prd_items/category_carousel_new_2" %>
+</div>
+<div class="container container-custom">
+  <% @items.each do |item| %>
+      <% if (item.availability == 'available' || item.availability == 'coming_soon') %>
+        <div class="col-sm-3 col-lg-3 col-md-3 ">
+          <div class="thumbnail thubmnail_remove_border">
+            <div class="custom_size">
+              <%item.prd_item_images.each do |img| %>
+                  <%= link_to prd_item_path(item) do %>
+                      <%=  image_tag img.image , class: 'itm_img img_border'%>
+                  <% end %>
+                  <% break%>
+              <% end %>
+            </div>
+            <br/>
+            <div>
+              <div class="pull-right" style="padding-right: 10px">
+
+              </div>
+              <div class ="itm_btns">
+                <%= button_tag "ADD TO CART", class: "btn itm_add_to_crt_btn btn-sm change_size", disabled:'true'%>
+                <%= button_tag "BUY NOW", class: "btn itm_buy_now_btn btn-sm change_size", disabled:'true' %>
+              </div>
+
+            </div>
+            <div class="caption">
+              <%  if (item.availability == 'coming_soon') %>
+                  <h5 class="pull-right" style="color: #cc0000">
+                    Coming Soon
+                  </h5>
+              <% end %>
+              <h5 style="color: #999999; white-space: nowrap; overflow: hidden"><%= link_to item.item_name, prd_item_path(item) %></h5>
+              <h5 class="pull-right" ><%= item.brand %></h5>
+              <h4 style="color: #5acde2"><%= number_to_currency(item.price, unit:'Rs. ') %></h4>
+
+            </div>
+            <div class="ratings">
+              <p class="pull-right"><small style="font-style: italic">more info</small></p>
+              <p>
+                <span class="glyphicon glyphicon-star stars"></span>
+                <span class="glyphicon glyphicon-star stars"></span>
+                <span class="glyphicon glyphicon-star stars"></span>
+                <span class="glyphicon glyphicon-star stars"></span>
+                <span class="glyphicon glyphicon-star-empty stars"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+  <% end %>
+</div>
+<div><%= image_tag("best_collections.png", :style => "width:100%")%></div>
+<div class="con2">
+  <%= render "prd_items/collection_carousel_new" %>
+</div>

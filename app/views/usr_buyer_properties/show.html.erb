@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Anniversary:</strong>
+  <%= @usr_buyer_property.anniversary %>
+</p>
+
+<p>
+  <strong>Usr contact:</strong>
+  <%= @usr_buyer_property.usr_contact %>
+</p>
+
+<%= link_to 'Edit', edit_usr_buyer_property_path(@usr_buyer_property) %> |
+<%= link_to 'Back', usr_buyer_properties_path %>

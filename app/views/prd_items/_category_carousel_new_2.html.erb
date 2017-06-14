@@ -1,0 +1,111 @@
+<script>
+    $(document).ready(function() {
+
+        //Sort random function
+        function random(owlSelector){
+            owlSelector.children().sort(function(){
+                return Math.round(Math.random()) - 0.5;
+            }).each(function(){
+                $(this).appendTo(owlSelector);
+            });
+        }
+
+        $("#owl-demo").owlCarousel({
+            navigation: true,
+            navigationText: [
+                "<span class='glyphicon glyphicon-menu-left'></span>",
+                "<span class='glyphicon glyphicon-menu-right'></span>"
+            ],
+            beforeInit : function(elem){
+                //Parameter elem pointing to $("#owl-demo")
+                random(elem);
+            }
+
+        });
+
+//        $( ".owl-prev").html('<span class="glyphicon glyphicon-menu-left"></span>');
+//        $( ".owl-next").html('<span class="glyphicon glyphicon-menu-right"></span>');
+    });
+</script>
+<style>
+  #owl-demo .item{
+    display: block;
+    padding: 30px 0px;
+    margin: 5px;
+    color: #ff333d;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    text-align: center;
+  }
+
+  .owl-theme .owl-controls .owl-buttons div {
+    color: #FFF;
+    display: inline-block;
+    zoom: 1;
+    margin: 5px;
+    padding: 3px 10px;
+    font-size: 40px;
+    border-radius: 30px;
+    background: none !important;
+    filter: Alpha(Opacity=50);
+    opacity: 0.5;
+    color: #000;
+  }
+
+  .owl-theme .owl-controls .owl-buttons div {
+    padding: 5px 9px;
+  }
+
+  .owl-theme .owl-buttons i{
+    margin-top: 2px;
+  }
+
+  /*To move navigation buttons outside use these settings:*/
+
+    .owl-theme .owl-controls .owl-buttons div {
+      position: absolute;
+    }
+
+  .owl-theme .owl-controls .owl-buttons .owl-prev{
+    left: -60px;
+    top: 38%;
+  }
+
+  .owl-theme .owl-controls .owl-buttons .owl-next{
+    right: -60px;
+    top: 38%;
+  }
+  .owl-theme .owl-controls .owl-buttons div {
+    position: absolute;
+  }
+  /*.owl-theme .owl-controls .owl-buttons .owl-prev {*/
+    /*left: -45px;*/
+    /*top: 55px;*/
+  /*}*/
+  #owl-demo img{
+    width: 100%;
+    height: 100%;
+  }
+
+  .item h2{
+    margin-top:-170px;
+    color:white;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+  }
+</style>
+
+
+<div id="owl-demo" class="owl-carousel owl-theme">
+  <div class="item"><%=image_tag("categ (1).png")%><h2>HEALTH & BEAUTY</h2></div>
+  <div class="item"><%=image_tag("categ (2).png")%><h2>Books & Stationary</h2></div>
+  <div class="item"><%=image_tag("categ (10).png")%><h2>fashion</h2></div>
+  <div class="item"><%=image_tag("categ (4).png")%> <h2>cameras</h2></div>
+  <div class="item"><%=image_tag("categ (5).png")%> <h2>baby products</h2></div>
+  <div class="item"><%=image_tag("categ (6).png")%> <h2>Computer, Handhelds & Electronics</h2></div>
+  <div class="item"><%=image_tag("categ (7).png")%><h2>home</h2></div>
+  <div class="item"><%=image_tag("categ (8).png")%><h2>Sporting</h2></div>
+  <div class="item"><%=image_tag("categ (9).png")%><h2>toys</h2></div>
+</div>

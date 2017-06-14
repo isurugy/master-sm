@@ -1,0 +1,59 @@
+<style>
+  .heading-merchant{
+    color: #cc4756;
+    font-weight: bold;
+    font-size: 70px;
+    font-family: Sans-Serif;
+
+  }
+  .subheading-merchant{
+    color: #c24ccc;
+    font-size: 25px;
+    font-family: Sans-Serif;
+    margin-top: -5px;
+    padding-bottom: 35px;
+  }
+  .merchant-forms{
+    padding-bottom: 30px;
+  }
+  .merchant-submit{
+    margin-top: 30px;
+    float: right;
+    width: 150px;
+    height: 50px;
+  }
+  .rectangle{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top:30px;
+  }
+  .form-merchant{
+    padding-bottom: 10px;
+  }
+  .inputs{
+    border-color: #44caff;
+    border-width: 2px;
+    height:40px;
+  }
+  #form_vender_branch{
+  }
+</style>
+
+<script>
+    function addNewUser(){
+        document.getElementById('new_user').click();
+    }
+</script>
+
+<div class="container">
+  <div class="row">
+    <center><h1 class="heading-merchant">MERCHANT REGISTRATION</h1>
+      <h2 class="subheading-merchant">Give us few details to set you up! Your page will be ready in no time</h2></center>
+  </div>
+
+        <div class="merchant-forms">
+          <%= render "usr_vendor_properties/form_vendor_loged_user_register" %>
+        </div>
+
+</div>

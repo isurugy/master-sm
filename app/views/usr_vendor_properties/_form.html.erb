@@ -1,0 +1,37 @@
+<%= form_for(usr_vendor_property) do |f| %>
+  <% if usr_vendor_property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(usr_vendor_property.errors.count, "error") %> prohibited this usr_vendor_property from being saved:</h2>
+
+      <ul>
+      <% usr_vendor_property.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :specified_area %>
+    <%= f.text_field :specified_area %>
+  </div>
+
+  <div class="field">
+    <%= f.label :mobile %>
+    <%= f.text_field :mobile %>
+  </div>
+
+  <div class="field">
+    <%= f.label :website %>
+    <%= f.text_field :website %>
+  </div>
+
+  <div class="field">
+    <%= f.label :shop_name %>
+    <%= f.text_field :shop_name %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

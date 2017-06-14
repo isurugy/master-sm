@@ -1,0 +1,100 @@
+<style>
+  table {
+    border-collapse: collapse;
+    width: 90%;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 10px;
+  }
+
+  td {
+    color: #999999;
+    font-size: 13px;
+  }
+
+  tr:nth-child(even){background-color: #f2f2f2}
+</style>
+
+<div class="container">
+
+  <div class="row" style="padding-bottom: 30px">
+    <div class="col-sm-4">
+      <%= link_to "ADD NEW", new_prd_item_path, class:'btn btn-danger btn-sm', style: 'color: white' %>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <%= button_tag "EXPORT", class: "btn btn-primary btn-sm ", disabled: 'true' do %>
+          EXPORT &nbsp;<span class="glyphicon glyphicon-share"></span>
+      <% end %>
+    </div>
+  </div>
+
+  <% if !@items.empty? %>
+    <div class="row">
+      <table>
+        <tr>
+          <th><input type="checkbox" disabled></th>
+          <th>Item Number</th>
+          <th>Item Name</th>
+          <th>Item Category</th>
+          <th>Stock</th>
+          <th>Item Price</th>
+          <th>Selling Price</th>
+          <th style="text-align: center">Status</th>
+        </tr>
+
+        <% index = 0%>
+        <% @items.each do |item|%>
+
+            <tr>
+              <td><input type="checkbox" disabled></td>
+              <td><%= item.item_no %></td>
+              <td><%= item.item_name %></td>
+              <td><%= @categories[index] %></td>
+              <td><%= item.stock_count %></td>
+              <td><%= number_to_currency(item.base_price, unit: 'LKR ') %></td>
+              <td><%= number_to_currency(item.price, unit: 'LKR ') %></td>
+              <td style="text-align: center">
+                <% if(item.availability == 'available') %>
+                    <p><mark style="background-color: #55f9a5; color: #868686">Available</mark></p>
+                <% elsif(item.availability == 'coming_soon') %>
+                    <p><mark style="background-color: #fab5e5; color: #868686">Coming soon</mark></p>
+                <%else%>
+                    <p><mark style="background-color: #f9e969; color: #868686">Out of Stock</mark></p>
+                <% end%>
+              </td>
+            </tr>
+
+            <% index+= 1%>
+
+        <% end %>
+      </table>
+    </div>
+  <% else %>
+
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" style="text-align: center; border:2px solid #0b1061; background: #41dbff; height: 200px; width: 300px">
+          <h3>You've no entered any products. </h3>
+          <h4><%= link_to "ADD PROCUCT", new_prd_item_path, style: 'color:blue'%> <br/>now</h4>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+
+  <% end %>
+
+  <div class="row" style="padding-top: 100px" >
+    <div class="col-sm-4">
+      <%= link_to "Back", usr_vendor_properties_path, class:'btn btn-info btn-sm', style: 'color: white' %>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4"></div>
+  </div>
+
+  <div style="padding-bottom: 100px"></div>
+
+</div>
+
+

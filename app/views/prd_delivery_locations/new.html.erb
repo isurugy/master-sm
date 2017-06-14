@@ -1,0 +1,8 @@
+<h1>ADD DELIVERY LOCATIONS</h1>
+
+<%= form_for @delivery_location do |pdl| %>
+    <%= pdl.label :location %>
+    <%= pdl.text_field :location, {placeholder: 'Location', class: 'form-control'} %><br/>
+
+    <%= pdl.submit "Add Location", class: "btn btn-info btn-lg"%>
+<% end %>

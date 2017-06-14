@@ -1,0 +1,69 @@
+<script>
+
+    $( document ).ready(function() {
+        getCartCountAtHeader();
+    });
+
+
+    function getCartCountAtHeader() {
+        var Url ="<%= request.base_url %>"+"/prd_items/get_cart_count";
+       console.log("<%= request.base_url %>");
+        $.ajax({
+            type:"GET",
+            url:Url,
+            dataType:"json",
+            success:function(result){
+                // alert(result);
+                setCartCountAtHeader(result.length);
+            },
+            error: function() {
+
+            }
+        });
+    }
+
+    function setCartCountAtHeader(count){
+        $('#cart_count').html(count);
+    }
+</script>
+
+<div class="container-fluid">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#"><img src="../assets/emre.PNG" > </a>
+    <a class="navbar-brand" href="#">Smart Mall</a>
+  </div>
+  <div id="navbar" class="navbar-collapse collapse" style="background:	#54A2F5">
+    <ul class="nav navbar-nav navbar-left">
+      <li><%= link_to "Register Items", new_prd_item_path %></li>
+      <li><%= link_to "All Items", prd_items_path %></li>
+      <li ><%= link_to "buyer", usr_buyer_new_path %></li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right" >
+      <li><%= link_to "Sell on Smartmall", usr_vendor_properties_new_path%></li>
+      <%- if usr_contact_signed_in? %>
+          <li><%= link_to "Sign out", destroy_usr_contact_session_path, method: :delete%></li>
+      <% else %>
+          <li><!--%= link_to "Sign up", new_usr_contact_registration_path , :class=>'glyphicon glyphicon-user'%></li-->
+          <li><%= link_to "Sign in or Register", new_usr_contact_registration_path , :remote => true, 'data-toggle' => "modal", 'data-target' => "#signUpPopup" %></li>
+          <li><%= link_to "Login", new_usr_contact_session_path , :class=>'glyphicon glyphicon-log-in'%></li>
+      <% end %>
+      <li><img src="../assets/Cart_new.PNG" style="margin: 10px;"></li>
+      <div class="pull-right cart-count" id="cart_count" >
+        0
+      </div>
+    </ul>
+    <form class="form-inline">
+      <div class="col-md-5 search-area">
+        <input class="form-control mr-md-2 main_search" type="text" placeholder="Search" aria-describedby="sizing-addon3">
+        <button class="btn btn-outline-success my-2 my-sm-0 main-search-btn" type="submit"> <span class="glyphicon glyphicon-search"></span></button>
+      </div>
+    </form>
+  </div><!--/.nav-collapse -->
+</div>

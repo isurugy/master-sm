@@ -1,0 +1,95 @@
+
+<script>
+    // documnet .ready function
+    $( document ).ready(function() {
+    });
+    // return selected tags
+    function getSelectedTags(){
+        var txt = $('#selectedTags p').text();
+        alert(txt);
+    }
+
+    // functions for drag and drop
+    function dragStart(event) {
+        event.dataTransfer.setData("Text", event.target.id);
+        // document.getElementById("demo").innerHTML = "Started to drag the p element";
+    }
+
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drop(event) {
+        event.preventDefault();
+        var data = event.dataTransfer.getData("Text");
+        event.target.appendChild(document.getElementById(data));
+        // document.getElementById("demo").innerHTML = "The p element was dropped";
+    }
+
+</script>
+<style>
+
+  p.file_field {
+    border: 2px solid #66c2ff;
+  }
+
+  p.heading_details{
+    color: #a3297a;
+    font-size: 20px;
+  }
+  hr.costomize{
+    border-top: 2px solid #d5d2d2;
+  }
+
+  h1.main_heading{
+    color: #ff4d4d;
+    font-size: 50px !important;
+    font-weight: 100 !important;
+  }
+
+  h3.subheading{
+    text-align: center;
+  }
+
+  .same_line{
+    display: inline;
+  }
+
+  .file_field_div {
+    border: 2px solid #66c2ff;
+  }
+
+  .droptarget {
+    float: left;
+    width: 360px;
+    height: 38px;
+    margin-right: 15px;
+    padding: 10px;
+    border: 2px solid #66c2ff;
+    margin-bottom: 8px;
+  }
+
+</style>
+<div class="col-md-12">
+<h3 class="subheading">ADDITIONAL USER</h3>
+</div>
+<%= form_for :post_shop, url: usr_vender_index_path do |f| %>
+    <div class="rectangle">
+    <div class="row">
+      <div class="col-md-6 ">
+        <p class="file_field">
+          <%=f.text_field :email,{:class => 'form-control', :placeholder => 'email'} %>
+        </p>
+      </div>
+
+      <div class="droptarget col-md-6 file_field_div form-control" id="selectedTags" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+      <div class="droptarget col-md-6 file_field_div form-control" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <p class = 'same_line' ondragstart="dragStart(event)" draggable="true" id="role1">Role1</p>
+        <p class = 'same_line' ondragstart="dragStart(event)" draggable="true" id="role2">Role2</p>
+        <p class = 'same_line' ondragstart="dragStart(event)" draggable="true" id="role3">Role3</p>
+        <p class = 'same_line' ondragstart="dragStart(event)" draggable="true" id="role4">Role4</p>
+      </div>
+    </div>
+    </div>
+<% end %>

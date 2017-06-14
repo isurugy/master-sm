@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  prd_type_variation: one
+  prd_item: one
+  stock: 1.5
+
+two:
+  prd_type_variation: two
+  prd_item: two
+  stock: 1.5

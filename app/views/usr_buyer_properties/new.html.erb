@@ -1,0 +1,130 @@
+<script>
+    $( function() {
+        $( "#datepicker" ).datepicker();
+    } );
+    $( function() {
+        $( "#datepicker1" ).datepicker();
+    } )
+    $( function() {
+        $( "#datepicker2" ).datepicker();
+    } )
+</script>
+
+<style>
+
+  .form-merchant{
+    padding-bottom: 10px;
+  }
+  .buyer-input{
+    border-color: #44caff;
+    border-width: 2px;
+  }
+  .heading-buyer{
+    color:#2B5176;
+    font-weight: bold;
+    font-size: 40px;
+    font-weight: 100;
+    font-family: Sans-Serif;
+    margin-left: 40px;
+
+
+  }
+  .subheading-buyer{
+    color: #c24ccc;
+    font-size: 20px;
+    font-family: Sans-Serif;
+    margin-top: -5px;
+    padding-top: 105px;
+    margin-right: 50px;
+  }
+  .well{
+    margin-bottom: 1px;
+  }
+  #skip-link{
+    margin-left: 65px;
+    text-decoration: underline;
+    padding-top: 105px;
+    font-size: 13px;
+  }
+
+  .buyer-form-headding{
+    margin-bottom: 30px;
+    float: left;
+    font-size: 30px;
+    margin-right: -100px;
+  }
+
+  @media only screen and (max-width: 1200px) {
+    .heading-buyer {
+      font-size: 34px;
+
+    }
+
+    .subheading-buyer {
+      font-size: 18px;
+      padding-top: -85px;
+    }
+    .buyer-personal-info{
+      margin-top: 30%;
+    }
+    .buyer-form-headding{
+      font-size: 25px;
+    }
+    #uploadarea{
+      margin-left: 40%;
+    }
+  }
+
+  @media only screen and (max-width: 991px) {
+    .heading-buyer {
+      font-size: 31px;
+
+    }
+
+    .subheading-buyer {
+      font-size: 16px;
+      padding-top: -105px;
+    }
+    .buyer-personal-info{
+      margin-top: 30%;
+    }
+    .buyer-form-headding{
+      font-size: 25px;
+    }
+    #uploadarea{
+      margin-left: 40%;
+    }
+  }
+
+  @media only screen and (max-width: 540px) {
+    .heading-buyer {
+      font-size: 28px;
+
+    }
+
+    .subheading-buyer {
+      font-size: 14px;
+      padding-top: -105px;
+    }
+    .buyer-personal-info{
+      margin-top: 30%;
+    }
+    .buyer-form-headding{
+      font-size: 20px;
+    }
+    #uploadarea{
+      margin-left: 40%;
+    }
+  }
+
+</style>
+<div class="container" style="margin-top: -120px;">
+  <div class="row" style="display: inline-flex;margin-left:-40px;padding-bottom: 20px;">
+    <h1 class="heading-buyer">Hi <%= @name[0][0,10] %></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <h2 class="subheading-buyer">Give us few details help you enjoy all of Smart Mall </h2>
+    <p id="skip-link"><%= link_to 'Skip for now',prd_items_path, style:"color:#2B5176;" %></p>
+  </div>
+
+    <%= render 'form', usr_buyer_property: @user_contact %>
+  </div>
+

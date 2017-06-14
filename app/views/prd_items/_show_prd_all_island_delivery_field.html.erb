@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2" style="padding-bottom: 25px"></div>
+
+    <div class="col-md-8" style="padding-bottom: 25px">
+
+      <div class="row map_name_align">
+        <h4>All Island delivery</h4>
+      </div>
+      <div class="row" style="padding-bottom: 30px; text-align: center">
+        <div class="input_border" style="background: white;   display: inline-flex; height: 238px;">
+          <div class="col-md-8"style="padding: 15px 45px 20px 45px ">
+
+            <div class="row" style="padding-bottom: 25px">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+                <h4>Delivery Period</h4>
+              </div>
+              <div class="col-md-4" style="display: inline-flex">
+                <h4><%= place.delivery_period %> days</h4>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+
+            <div class="row" style="padding-bottom: 25px">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+                <h4>Delivery Rate</h4>
+              </div>
+              <div class="col-md-4">
+                <h4><%= number_to_currency(place.delivery_rate, unit:'Rs. ') %></h4>
+              </div>
+              <div class="col-md-2">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-10">
+                <p>Read details area list <a href="#">here</a></p>
+              </div>
+            </div>
+
+          </div>
+          <div >
+            <%= image_tag("all_island_map.JPG", :size => 17*14, style: 'margin-left:140px')%>
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+
+    <div class="col-md-2" style="padding-bottom: 25px"></div>
+  </div>
+</div>

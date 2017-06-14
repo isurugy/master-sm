@@ -1,0 +1,52 @@
+
+<style>
+  table {
+    border-collapse: collapse;
+    width: 90%;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 10px;
+  }
+
+  td {
+    color: #999999;
+    font-size: 13px;
+  }
+
+  tr:nth-child(even){background-color: #f2f2f2}
+</style>
+
+<div class="container" >
+
+  <div class="row">
+    <div class="col-sm-4">
+      <%= link_to "Back", csl_admin_index_path, class:'btn btn-info', style: 'color: white' %>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <%= link_to link_to "Create Permission", new_usr_permission_path, class:'btn btn-warning', style: 'color: white' %>
+    </div>
+  </div>
+  <h3 >All Permissions</h3>
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Values</th>
+    </tr>
+    <% @permissions.each do |p|%>
+        <tr>
+          <td> <%= p.permission_name %></td>
+          <td>
+            <p><mark style="background-color: #55f9a5; color: #868686">Edit</mark>
+            <mark style="background-color: #fab5e5; color: #868686">Hide</mark>
+            <mark style="background-color: #f9e969; color: #868686">Read only</mark></p>
+          </td>
+        </tr>
+    <% end %>
+  </table>
+
+  <div style="padding-bottom: 200px"></div>
+</div>

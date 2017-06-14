@@ -1,0 +1,30 @@
+<style>
+  #merchant-header{
+    margin-top:-60px;;
+  }
+  .btn-get{
+    background-color: #1c94c4;
+  }
+  .btn-get:hover{
+    background-color: #1c94c4;
+  }
+</style>
+<div id="merchant-header">
+  <img src='../assets/Merchant1'  width="100%"/>
+</div>
+<div class="container">
+  <%- if usr_contact_signed_in? %>
+    <center><h2 style="color:#888888;margin-top: 100px;margin-bottom:220px;line-height: 35px">With Your Designe, your products and your ideas, SmartMall
+    <br>is the most versatile and customizable sales platform!
+    <br>The great news is that is all completely Free!</h2></center>
+  <% else %>
+    <center><h2 style="color:#888888;margin-top: 100px;margin-bottom:60px;line-height: 35px">With Your Designe, your products and your ideas, SmartMall
+    <br>is the most versatile and customizable sales platform!
+    <br>The great news is that is all completely Free!</h2></center>
+    <center><%= link_to "GET STARTED", new_usr_vendor_property_path, class:"btn btn-get", style:"color:#ffffff;font-family: IM Fell French Canon SC;font-size:25px;margin-bottom:160px" %></center>
+  <% end %>
+  
+</div>
+<div id="merchant-header">
+  <img src='../assets/Merchant'  width="100%"/>
+</div>

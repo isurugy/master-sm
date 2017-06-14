@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  card_name: MyString
+  encrypted_card_number: MyString
+  encrypted_cvv: 
+  encrypted_expiry_date: MyString
+
+two:
+  card_name: MyString
+  encrypted_card_number: MyString
+  encrypted_cvv: 
+  encrypted_expiry_date: MyString

@@ -1,0 +1,36 @@
+<style>
+  .selected {
+    border: 1px solid #0000FF;
+  }
+
+</style>
+
+<div class="rectangle repetediv nested-fields" id="repetediv">
+  <div class="row">
+    <div class="col-md-6">
+      <p class="file_field">
+        <%=f.text_field :email,{:class => 'form-control', :placeholder => 'email'} %>
+        <%=f.text_field :role, :class=>'rolefield'%>
+      </p>
+    </div>
+    <!--Role Selector -->
+    <div class="col-md-12"><h4 class ="pageRole">Page role</h4></div>
+    <div class="col-md-12 long-multiselect__outer" style="width: 100%; height:200px; overflow: auto">
+      <% @roles.each do |role| %>
+          <% @count += 1 %>
+          <div class = "col-md-6 myDivs-col">
+            <div class="input-group btn-group myDivs" id="div<%=@count.to_s%>">
+                  <span class="input-group-addon">
+                  <i><img src='../assets/user_female' /></i>
+                  </span>
+              <div class= "form-control long-multiselect item-div">
+                <h5><%=role.role_name%></h5>
+                <p><%=role.description%></p>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+  <%= link_to_remove_association "Remove user", f %>
+</div>

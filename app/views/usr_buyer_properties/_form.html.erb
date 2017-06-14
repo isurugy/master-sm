@@ -1,0 +1,436 @@
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.getElementById("blah").style.display = 'block';
+                document.getElementById("uploadarea").style.color = "white";
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(190)
+                    .height(190);
+                document.getElementById("imagedragtxt").style.display = 'none';
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    var imageLoader = document.getElementById('usr_contact_image');
+    imageLoader.addEventListener('change', handleImage, false);
+
+    function handleImage(e) {
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            $('.uploader img').attr('src',event.target.result);
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    }
+
+    function ClickTasks(){
+      document.getElementById('add-billing-addr').click();
+    }
+    function ClickTasks1(){
+      document.getElementById('add-delivery-addr').click();
+    }
+    function ClickTasks2(){
+      document.getElementById('add-payment-meth').click();
+    }    
+</script>
+
+<script type="text/javascript">
+
+    function onAddTag(tag) {
+      alert("Added a tag: " + tag);
+    }
+    function onRemoveTag(tag) {
+      alert("Removed a tag: " + tag);
+    }
+
+    function onChangeTag(input,tag) {
+      alert("Changed a tag: " + tag);
+    }
+
+    $(function() {
+
+      $('#tags_1').tagsInput({width:'auto'});
+      $('#tags_2').tagsInput({
+        width: 'auto',
+        onChange: function(elem, elem_tags)
+        {
+          var languages = ['php','ruby','javascript'];
+          $('.tag', elem_tags).each(function()
+          {
+            if($(this).text().search(new RegExp('\\b(' + languages.join('|') + ')\\b')) >= 0)
+              $(this).css('background-color', 'yellow');
+          });
+        }
+      });
+      $('#tags_3').tagsInput({
+        width: 'auto',
+
+        //autocomplete_url:'test/fake_plaintext_endpoint.html' //jquery.autocomplete (not jquery ui)
+        autocomplete_url:'test/fake_json_endpoint.html' // jquery ui autocomplete requires a json endpoint
+      });
+
+
+// Uncomment this line to see the callback functions in action
+//      $('input.tags').tagsInput({onAddTag:onAddTag,onRemoveTag:onRemoveTag,onChange: onChangeTag});
+
+// Uncomment this line to see an input with no interface for adding new tags.
+//      $('input.tags').tagsInput({interactive:false});
+    });
+
+  </script>
+
+
+
+<style>
+
+  .radio {
+    padding-left: -20px;
+    border-width: 2px;
+    width: 100%;
+    height: 2em;
+    border-color:#5ea1f6;
+  }
+  .uploader {
+    float: left;
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
+    overflow:hidden;
+    width:190px;
+    height:190px;
+    background: url("http://www.elckerlijc.com/wp-content/uploads/2016/12/portret.png") center center;
+    background-color: #ffffff;
+    margin-bottom: 15px;
+    border:double;
+    border-width: 3px;
+    border-color: #5ea1f6;
+    border-radius:5px;
+    border-style: solid;
+
+  }
+
+  #usr_contact_image{
+    position:absolute;
+    align-items: center;
+    width:300px;
+    height:400px;
+    top:-50px;
+    left:0;
+    z-index:2;
+    opacity:0;
+    cursor:pointer;
+  }
+
+  .uploader img{
+    position:absolute;
+    width:302px;
+    height:302px;
+    top:-1px;
+    left:-1px;
+    z-index:1;
+    border-width:4px;
+
+  }
+  .inputs{
+    font-size: 18px;
+    border-color: #5ea1f6;
+    border-width: 2px;
+    height:40px;
+    border-radius: 4px;
+  }
+    .save-buyer{
+      position: absolute;
+      right: 80px;
+      width: 100px;
+    }
+    .add-btn{
+      border: dotted 2px;
+      font-size: 40px;
+      height: 50px;
+      width: 50px;
+
+    }
+
+    a.add-btn{
+      color: #44caff;
+      text-decoration: none;
+
+    }
+
+  .addNew{
+    width: 40px;
+    height: 40px;
+    border: 2px dashed;
+    border-color: #1E90FF;
+  }
+  .addNew:hover{
+    background-color: transparent !important;
+    border-color: #00BFFF;
+    cursor:pointer
+  }
+
+  .buyer-inputs{
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+
+  #buyer-input-label{
+    float: right;
+    margin-left: -50px;
+    padding-top: 10px;
+    font-size: 17px;
+  }
+
+  #buyer-input-label2{
+    padding-top: 10px;
+    font-size: 17px;
+  }
+
+  #buyer-input-label3{
+    padding-top: 10px;
+    font-size: 17px;
+    padding-left: 15px;
+  }
+
+  .space-buyer-fields{
+    padding-top:10px;
+  }
+
+  .inputs-address{
+    margin-left:-15px;
+
+  }
+
+  .payment-fields{
+    margin-right: -50px;
+  }
+
+  #buyer-hr{
+
+  }
+
+</style>
+
+
+
+<%= form_for @user_contact, url: {action: "update", method: :put} do |f| %>
+
+    <div class="row">
+      <div class="col-sm-3">
+        <p class="buyer-form-headding">Your Details</p>
+      </div>
+      <div class="col-sm-7" style="padding-left: 100px;padding-bottom: 10px">
+
+      </div>
+      <div class="col-sm-2" style="padding-left: 30px;padding-top:20px">
+
+      </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-3">
+          <div id="uploadarea" class="uploader" onclick="$('#usr_contact_image').click()">
+            <input type="file" name="image"  id="filePhoto" onchange="readURL(this)"  style="display: none"/>
+            <%= f.file_field :image, :onchange=>'readURL(this)' %>
+            <%- if @image %>
+               <%= image_tag @image , id:"blah", style:"width:190px;height:190px"  %>
+            <% else %>
+                <img id="blah" src="#" alt="image" style="display: none;"/>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="col-md-6 buyer-personal-info">
+        <div class="form-group buyer-inputs">
+          <div class="row">
+            <div class="col-sm-2">
+              <p id="buyer-input-label">First Name</p>
+            </div>
+            <div class="col-sm-10">
+              <%= f.text_field :first_name, class: "form-control inputs",placeholder:"First Name" %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group buyer-inputs">
+          <div class="row">
+            <div class="col-sm-2">
+              <p id="buyer-input-label">Last Name</p>
+            </div>
+            <div class="col-sm-10">
+              <%= f.text_field :last_name, class: "form-control inputs",placeholder:"Last Name" %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group buyer-inputs">
+          <div class="row">
+            <div class="col-sm-2">
+                <p id="buyer-input-label">Birth Day</p>
+            </div>
+            <div class="col-sm-10">
+              <%= f.text_field :dob, id: "datepicker1", class: "form-control inputs",placeholder:"Birth Day" %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group buyer-inputs" style="height:34px;padding-top:5px;">
+          <div class="row">
+            <div class="col-sm-2">
+              <p id="buyer-input-label">Gender</p>
+            </div>
+            <div class="col-sm-10" style="margin-bottom: 20px;">
+              <div class="row">
+                <div class="col-md-2">
+                  <%= f.radio_button :gender, "male",class:"radio" %>
+                </div>
+                <div class="col-md-4" id="abc">
+                  Male
+                </div>
+                <div class="col-md-2">
+                  <%= f.radio_button :gender, "female",class:"radio" %>
+                </div>
+                <div class="col-md-4">
+                  Female
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group buyer-inputs">
+          <div class="row">
+            <div class="col-sm-2">
+              <p id="buyer-input-label"  style="margin-left: -80px">E-Mail Adderss</p>
+            </div>
+            <div class="col-sm-10">
+              <%= f.text_field :email, class: "form-control inputs",placeholder:"E-Mail Adderss" %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group buyer-inputs">
+          <div class="row">
+            <div class="col-sm-2">
+              <p id="buyer-input-label" style="margin-left: -80px">Phone Number</p>
+            </div>
+            <div class="col-sm-10">
+              <%= f.text_field :mobile,class: "form-control inputs",placeholder:"Phone Number" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+
+      </div>
+    </div>
+
+    <hr id="buyer-hr">
+
+    <div class="row">
+      <div class="col-sm-3">
+        <p class="buyer-form-headding">Billing Address</p>
+      </div>
+      <div class="col-sm-7" style="padding-left: 100px;padding-bottom: 10px">
+
+      </div>
+      <div class="col-sm-2" style="padding-left: 30px;padding-top:20px">
+
+      </div>
+    </div>
+    <div class = "row">
+      <div class="col-sm-9">
+        <div class="tasks">
+          <%= f.fields_for :usr_buyer_billing_addresses do |billing_add| %>
+              <%= render 'usr_buyer_billing_address_fields', f: billing_add  %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-sm-3">
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-9">
+        <center><%= link_to_add_association '+', f, :usr_buyer_billing_addresses, class:'add-btn btn hidden',id:"add-billing-addr", data: { association_insertion_node: '.tasks', association_insertion_method: :append } %></center>
+        <center><%= image_tag 'plus',class:"addNew" ,id:"add-billing-addr-click", onclick:"ClickTasks()" %></center>
+
+      </div>
+      <div class="col-sm-3">
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <p class="buyer-form-headding">Delivery Address</p>
+      </div>
+      <div class="col-sm-7" style="padding-left: 100px;padding-bottom: 10px">
+
+      </div>
+      <div class="col-sm-2" style="padding-left: 30px;padding-top:20px">
+
+      </div>
+    </div>
+    <div class = "row">
+      <div class="col-sm-9">
+        <div class="tasks1">
+          <%= f.fields_for :usr_buyer_delivery_addresses do |delivery_add| %>
+              <%= render 'usr_buyer_delivery_address_fields', f: delivery_add  %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-sm-3">
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-9">
+        <center><%= link_to_add_association '+', f, :usr_buyer_delivery_addresses, class: 'add-btn btn hidden', id:"add-delivery-addr", data: { association_insertion_node: '.tasks1', association_insertion_method: :append } %></center>
+        <center><%= image_tag 'plus',class:"addNew" ,id:"add-billing-addr-click", onclick:"ClickTasks1()" %></button></center>
+      </div>
+      <div class="col-sm-3">
+
+      </div>
+    </div>    <div class="row">
+      <div class="col-sm-3">
+        <p class="buyer-form-headding">Payment Method</p>
+      </div>
+      <div class="col-sm-7" style="padding-left: 100px;padding-bottom: 10px">
+
+      </div>
+      <div class="col-sm-2" style="padding-left: 30px;padding-top:20px">
+
+      </div>
+    </div>
+    <div class = "row">
+      <div class="col-sm-9">
+        <div class="tasks2">
+          <%= f.fields_for :usr_buyer_payment_methods do |payment_method| %>
+              <%= render 'usr_buyer_payment_method_fields', f: payment_method  %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-sm-3">
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-9">
+        <center><%= link_to_add_association '+', f, :usr_buyer_payment_methods, class: 'add-btn btn hidden', id:"add-payment-meth", data: { association_insertion_node: '.tasks2', association_insertion_method: :append } %></center>
+        <center><%= image_tag 'plus',class:"addNew" ,id:"add-billing-addr-click", onclick:"ClickTasks2()" %></button></center>
+      </div>
+      <div class="col-sm-3">
+
+      </div>
+    </div>
+
+    <div class="actions"  style="margin-bottom:50px" >
+    <%= f.submit 'Save', class:'btn btn-primary save-buyer' %>
+    </div>
+<% end %>
+
+
+
+      <input id="tags_1" type="text" class="tags" value="foo,bar,baz,roffle" /></p>

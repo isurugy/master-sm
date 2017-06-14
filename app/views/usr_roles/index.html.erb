@@ -1,0 +1,48 @@
+
+<style>
+  table {
+    border-collapse: collapse;
+    width: 90%;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 10px;
+  }
+
+  td {
+    color: #999999;
+    font-size: 13px;
+  }
+
+  tr:nth-child(even){background-color: #f2f2f2}
+</style>
+
+<div class="container" >
+
+  <div class="row">
+    <div class="col-sm-4">
+      <%= link_to "Back", csl_admin_index_path, class:'btn btn-info', style: 'color: white' %>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <%= link_to link_to "Create Role", new_usr_role_path, class:'btn btn-warning', style: 'color: white' %>
+    </div>
+  </div>
+  <h3>All Roles</h3>
+
+<table>
+  <tr>
+    <th>Role Name</th>
+    <th>Description</th>
+  </tr>
+  <% @roles.each do |role|%>
+      <tr>
+        <td><%=role.role_name%></td>
+        <td><%= role.description %></td>
+      </tr>
+  <% end %>
+</table>
+
+  <div style="padding-bottom: 200px"></div>
+</div>

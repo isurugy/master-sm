@@ -1,0 +1,182 @@
+<style>
+  .long-multiselect__outer {
+    border: 2px groove  #44caff;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .long-multiselect__outer .multiselect-selected-text {
+    text-align: center;
+    padding-left: 1px;
+  }
+
+  .multiselect-container.dropdown-menu {
+    max-width: 100%;
+  }
+
+  .multiselect-container.dropdown-menu li a label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*white-space: nowrap;*/
+  }
+
+  .item-div{
+    min-height: 70px;
+    min-width: 120px;
+    padding-right: 0;
+    padding-left: 0;
+    padding: 10px;
+  }
+
+  .input-group-addon img{
+      width: 50px;
+    }
+
+  .col-md-12 .col-md-6{
+    padding-left: 0px;
+  }
+
+  h3.subheading{
+    text-align: center;
+  }
+
+  p.file_field {
+    border: 2px solid #66c2ff;
+  }
+
+  .pageRole{
+    padding-left: 25px;
+  }
+
+  .well{
+  min-height: 100px !important;
+  }
+
+  .myDivs-col{
+  padding: 1px;
+  }
+
+  .btn-add {
+    display:block;
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    border: 2px dotted  #44caff;
+    background:white;
+    font-size:30px;
+    color:#44caff;
+    padding-top: 0px;
+  }
+   .add-btn{
+      border: dotted 2px;
+      font-size: 40px;
+      height: 50px;
+      width: 50px;
+
+    }
+
+    a.add-btn{
+      color: #44caff;
+      text-decoration: none;
+
+    }
+
+</style>
+<script>
+  <% if controller_name== 'usr_vendor_properties' && action_name == 'new' %>
+    $( document ).ready(function() {
+        document.getElementById('new_branch').click();
+        document.getElementById('new_user').click();
+    });
+  <% end %>
+
+    $(document).on('click', '.myDivs', function () {
+        $(this).toggleClass('selected');
+        var test = $(this).parents(".repetediv")[0].id;
+        console.log("wanted "+test);
+        var selectedRoles = $('#'+test+' .selected').map(function() {
+            var divId = this.id;
+            var parentDivId = $(this).parents(".repetediv")[0].id;
+            //var roleNames = $('#'+divId+' h5').text();
+            var roleNames = $('#'+parentDivId).find('#'+divId+' h5').text();
+            return roleNames;
+        }).get();
+
+        console.log(selectedRoles);
+        var top = $(this).parents(".repetediv")[0].getElementsByClassName("rolefield")[0].id;
+        // console.log('top '+top);
+        document.getElementById(top).value = selectedRoles;
+        // $("#"+top).val(selectedRoles);
+    });
+
+    $(function () {
+        var count = 0;
+        $(".repeatz").on('click', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            var id =  $('#repeatingz').children().last().attr('id');
+            $('#repeatingz').children().last().attr('id','test'+count);
+            count = count+1;
+            console.log(id);
+        });
+    });
+
+</script>
+
+
+
+<% e.object.build_usr_vendor_property unless e.object.usr_vendor_property %>
+<%= e.fields_for :usr_vendor_property do |ee| %>
+    <div class="row">
+      <center><h2>Shop Details</h2></center>
+    </div>
+
+    <div class="rectangle">
+      <div class="raw">
+        <div class="col-md-6">
+          <div class="form-group form-merchant">
+            <%= ee.text_field :shop_name, class: "form-control inputs",placeholder:"Your Shop Name" %>
+          </div>
+        </div>
+        <!--<div class="col-md-6">-->
+          <!--<div class="form-group form-merchant">-->
+            <!--<%= ee.text_field :specified_area, class: "form-control inputs",placeholder:"Specified Area (optional)" %>-->
+          <!--</div>-->
+        <!--</div>-->
+      </div>
+      <!--#Vendor Branch-->
+
+      <div class = "repeating1">
+        <% ee.fields_for :usr_vendor_branches do |builder1| %>
+            <% render 'usr_vendor_branch_fields', f: builder1 %>
+        <%end%>
+      </div>
+      <%= link_to_add_association 'Add new branch', ee , :usr_vendor_branches , class: 'btn btn-primary hidden',id:'new_branch',
+                                  data:{association_insertion_node: '.repeating1',association_insertion_method: :append } %>
+
+      <div class="raw">
+        <div class="col-md-6">
+          <div class="form-group form-merchant">
+            <%= ee.text_field :website, class: "form-control inputs",placeholder:"Website (optional)" %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group form-merchant">
+            <%= ee.text_field :mobile, class: "form-control inputs",placeholder:"Phone Number" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!--#Additional user-->
+    <% @count =0 %>
+      <% ee.fields_for :usr_additional_users do |builder| %>
+          <% render 'usr_additional_user_fields', f: builder%>
+      <%end%>
+    <!--<button class="repeat btn-add">+</button>-->
+    <%= link_to_add_association 'add new', ee , :usr_additional_users , class: 'btn btn-primary repeatz hidden',id:'new_user',
+                                data:{association_insertion_node: '.repeating',association_insertion_method: :append } %>
+<% end %>

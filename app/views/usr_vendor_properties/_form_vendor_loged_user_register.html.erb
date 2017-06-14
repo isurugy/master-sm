@@ -1,0 +1,64 @@
+<%= form_for @user_contact_edit, url: {action: "update",method: 'patch'} do |f| %>
+    <%= f.fields_for :usr_contact_vendors do |usr_vendor_contact| %>
+        <%= render 'form_vendor_shop_details', e: usr_vendor_contact %>
+    <% end %>
+
+    <%= devise_error_messages! %>
+
+    <div class="row">
+      <div class="col-md-12">
+        <center><h2>Your Details</h2></center>
+      </div>
+    </div>
+
+    <div class="rectangle">
+      <div class="raw">
+        <div class="col-md-6">
+          <div class="form-group form-merchant">
+            <%= f.text_field :first_name, class: "form-control inputs",placeholder:"First Name" %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group form-merchant">
+            <%= f.text_field :last_name, class: "form-control inputs",placeholder:"Last Name" %>
+          </div>
+        </div>
+      </div>
+      <div class="raw">
+        <div class="col-md-6">
+          <div class="form-group form-merchant">
+            <%- if usr_contact_signed_in? %>
+                <%= f.text_field :email, class: "form-control inputs",placeholder:"Email", style:"pointer-events: none;tab-index: -1; background-color : #d1d1d1; " %>
+            <% else %>
+                <%= f.text_field :email, class: "form-control inputs",placeholder:"Email" %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group form-merchant">
+            <%= f.text_field :mobile, class: "form-control inputs",placeholder:"Phone Number" %>
+          </div>
+        </div>
+      </div>
+
+      <div class = "repeating" id = "repeatingz">
+
+      </div>
+      <div class="row">
+        <%= f.submit "Register" ,class:"btn btn-primary btn-merchant-reg",style:"float:right;margin-right:-90px;height:50px;width:150px;"%>
+        </div>
+      </div>
+    </div>
+
+
+    <!--<div class="field">-->
+    <!--%= f.label :Mobile %><br />
+    <!--<!--%= f.text_field :mobile %>-->
+    <!--</div>-->
+
+    <!--<div class="field">-->
+    <!--<!--%= f.file_field :image %>-->
+    <!--</div>-->
+
+
+<% end %>

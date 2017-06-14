@@ -1,0 +1,421 @@
+
+<style>
+  .selected {
+    border: 1px solid #0000FF;
+  }
+  .myDivs{
+    width: 100%;
+  }
+
+  .long-multiselect__outer {
+    border: 2px groove  #44caff;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .long-multiselect__outer .multiselect-selected-text {
+    text-align: center;
+    padding-left: 1px;
+  }
+
+  .multiselect-container.dropdown-menu {
+    max-width: 100%;
+  }
+
+  .multiselect-container.dropdown-menu li a label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*white-space: nowrap;*/
+  }
+
+  .item-div{
+    min-height: 70px;
+    min-width: 120px;
+    padding-right: 0;
+    padding-left: 0;
+    padding: 10px;
+  }
+
+  .input-group-addon img{
+    width: 50px;
+  }
+
+  .col-md-12 .col-md-6{
+    padding-left: 0px;
+  }
+
+  h3.subheading{
+    text-align: center;
+  }
+
+  p.file_field {
+    border: 2px solid #66c2ff;
+  }
+
+  .pageRole{
+    padding-left: 25px;
+  }
+
+  .well{
+    min-height: 100px !important;
+  }
+
+  .myDivs-col{
+    padding: 1px;
+    height: 73px;
+  }
+
+
+
+  #typeDivs .input-group-addon , #subcategorydivs .input-group-addon {
+    padding: 0px 1px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    /* background-color: #1d1414; */
+    /* border: 1px solid #ccc; */
+    border-radius: 4px;
+  }
+
+  #typeDivs .input-group {
+    position: relative;
+    z-index: 2;
+    float: none;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .item-div-new{
+    min-height: 50px;
+    min-width: 120px;
+    padding-right: 0;
+    padding-left: 0;
+    padding-left: 15px;
+  }
+
+  .myDivs-col-sub{
+    padding: 1px;
+    height: 52px;
+  }
+
+  #typeDivs h6,#categoryDivs h5 {
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .cat-heading{
+    text-align: -webkit-center;
+    font-weight: bold;
+    font-size: 35px
+  }
+
+  @media only screen and (max-width: 991px) {
+    .col-md-12 .long-multiselect__outer{
+      width:97%;
+    }
+    .row {
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+  }
+
+
+</style>
+
+<script>
+  var type_id;
+    $(document).on('click', '.myDivs', function () {
+        $(this).toggleClass('selected');
+
+        var perentID = $(this).parents(".categoryDiv")[0].id;
+        console.log("wanted "+perentID);
+
+            var selectedRoles = $('#'+perentID+' .selected').map(function() {
+                var divId = this.id;
+                var parentDivId = $(this).parents(".categoryDiv")[0].id;
+                var selectedDivs = $('#'+parentDivId).find('#'+divId+' h5').text();
+                return selectedDivs;
+            }).get();
+
+            if(selectedRoles.length>=3){
+                $(this).toggleClass('selected');
+                alert("You cant select more than 2");
+            }
+
+                var divId = this.id;
+                var parentDivId = $(this).parents(".categoryDiv")[0].id;
+                //  console.log("PA"+parentDivId);
+                //var roleNames = $('#'+divId+' h5').text();
+                var selectedNames = $('#'+parentDivId).find('#'+divId+' h5').text();
+                //console.log("tse"+categoryName);
+
+                if(parentDivId == "categorydiv"){
+                    var currentClass = $('#'+parentDivId).find('#'+divId).parents().children()[0].className;
+                    if(currentClass.includes("selected")) {
+                        GetSubCategoies(selectedNames);
+                    }
+                    else{
+                        $('#subcategory_area .'+selectedNames).remove();
+                        if($('#subcategory_area').contents().length == 1){
+                            document.getElementsByClassName("sub_categories")[0].style.display = 'none';
+                            document.getElementsByClassName("typez")[0].style.display = 'none';
+                        }
+                    }
+                }
+                else if(parentDivId == "subcategorydivs"){
+                    var currentClass = $('#'+parentDivId).find('#'+divId).parents().children()[0].className;
+                    if(currentClass.includes("selected")) {
+                        GetTypes(selectedNames);
+                        GetSubCategoryId(selectedNames);
+
+                        var selectedItemsLowercase = selectedNames.toLowerCase();
+                        $("#selected_sub").val(selectedItemsLowercase);
+//                        $('#sub_partial_view .prd-spec').remove();
+                    }
+                    else{
+                      $('#typeArea .'+selectedNames).remove();
+                      if($('#typeArea').contents().length == 1){
+                          document.getElementsByClassName("typez")[0].style.display = 'none';
+                      }
+                    }
+                }
+                else if(parentDivId == "typeDivs"){
+                    GetTypeId(selectedNames);
+                    GetSelectedTypes(selectedNames) //get the type names for getting suggetions for autocomplete in variation fields
+                }
+
+        console.log(selectedNames);
+        //console.log(selectedRoles.length);
+    });
+
+ function GetSubCategoies(categoryName) {
+     $.ajax({
+         type:"GET",
+         url:"apple",
+         dataType:"json",
+         data: {SelectedCategory: categoryName},
+         success:function(result){
+            // alert(result);
+            DisplaySubCategories(result,categoryName);
+         }
+     })
+ }
+
+ function GetTypes(subCategoryName){
+     $.ajax({
+         type:"GET",
+         url:"get_types",
+         dataType:"json",
+         data: {SelectedSubCategory: subCategoryName},
+         success:function(result){
+            // alert(result);
+             DisplayTypes(result,subCategoryName);
+         }
+     })
+ }
+
+function GetSubCategoryId(subCategoryName) {
+    $.ajax({
+        type:"GET",
+        url:"get_subcat_id",
+        dataType:"json",
+        data: {selectedSubcategory: subCategoryName},
+        success:function(result){
+            // alert(result);
+            $("#sub_cat_id").val(parseInt(result));
+        }
+    })
+}
+
+ function GetTypeId(typeName) {
+     $.ajax({
+         type:"GET",
+         url:"get_type_id",
+         dataType:"json",
+         data: {SelectedType: typeName},
+         success:function(result){
+             type_id = result
+            SetTypeId(result);
+
+         }
+     })
+}
+
+function DisplaySubCategories(result,categoryName){
+     document.getElementsByClassName("sub_categories")[0].style.display = 'block';
+
+     for (var i = 0; i < result.length; i++) {
+         $('#subcategory_area').append("<div class = 'col-md-3 myDivs-col-sub "+categoryName+"'> " +
+             "<div class='input-group btn-group myDivs' id='div-"+categoryName+"-"+i+"' > " +
+             "<span class='input-group-addon'> " +
+             "<i></i>" +
+             "</span> " +
+             "<div class= 'form-control long-multiselect item-div-new'> " +
+             " <h5>"+result[i]+"</h5>" +
+             "</div></div></div>");
+     }
+ }
+
+ function DisplayTypes(result,subCategoryName){
+     document.getElementsByClassName("typez")[0].style.display = 'block';
+     console.log("result-"+result.length);
+     for (var i = 0; i < result.length; i++) {
+         var values = result[i].split("~");
+         var type_name = values[0];
+         var type_id = values[1];
+         $('#typeArea').append("<div class = 'col-md-3 myDivs-col-sub "+subCategoryName+"'> " +
+             "<div class='input-group btn-group myDivs' id='div-"+subCategoryName+"-"+i+"' > " +
+             "<span class='input-group-addon'> " +
+             "<i></i>" +
+             "</span> " +
+             "<div class= 'form-control long-multiselect item-div-new'> " +
+             " <h6>"+type_name+"</h6>" +
+             " <h5  style='display: none'>"+type_id+"</h5>" +
+             "</div></div></div>");
+     }
+ }
+
+ function SetTypeId(result) {
+    // alert(result);
+   $("#item_type_field").val(result);
+ }
+
+
+  //is dev
+  function GetSelectedTypes(type_id){
+      $.ajax({
+          type:"GET",
+          url:"set_selected_types",
+          dataType:"json",
+          data: {selectedType: type_id},
+          success:function(result){
+              //get the fields according to the types
+              if(result[0] == 'no-type-selected'){
+                  $('#sub_partial_view .prd-spec').remove();
+              }
+              else{
+                  DisplaySubcatFields(result[1],result[0])
+              }
+          },
+          error: function () {
+              alert("error in getting types in a string")
+          }
+
+      })
+  };
+
+  function DisplaySubcatFields(variation_item,variation){
+      $('#sub_partial_view .prd-spec').remove();
+      for (var i = 0; i < variation_item.length; i++) {
+          $('#sub_partial_view').append("<div class='raw prd-spec '><div class='col-md-12'><div class='form-group form-merchant'><div class='col-md-2'> <b>"+variation_item[i]+":</b></div> " +
+              "<div class='col-md-8'> " +
+              "<input id='"+variation_item[i]+"' class= 'spec-text form-control' placeholder='"+variation[i]+"'  data-role='tagsinput' onclick='SetVariations(\""+String(variation_item[i])+"\")' >" +
+              "</div><div class='col-md-2'></div></div></div></div>");
+      }
+    };
+
+  function SetVariations(spec){
+
+      $(".spec-text").tokenInput("http://127.0.0.1:3000/prd_items/get_variation_list?SelectedSpec=color",
+          {propertyToSearch:"value",theme:"facebook",preventDuplicates:true
+      });
+  }
+
+  function SetVariations1() {
+      var selectedValues = $('.spec-text').tokenInput("get");
+      alert(selectedValues)
+  }
+
+
+  function SetVariations12(typeName) {
+
+      $.ajax({
+          type:"GET",
+          url:"get_variation_list",
+          dataType:"json",
+          data: {SelectedSpec: typeName},
+          success:function(result){
+            alert(result);
+        console.log(result);
+          }
+      })
+  }
+
+
+</script>
+
+
+<div class="row">
+  <div style="text-align: center; padding-bottom: 25px">
+    <h2 class ='cat-heading'>CATEGORIES</h2>
+  </div>
+</div>
+<div class="rectangle categoryDiv nested-fields" id="categorydiv">
+  <div class="row">
+    <% @count = 0%>
+    <!--Role Selector -->
+    <div class="col-md-12"><h4 class ="pageRole">Select Category*</h4></div>
+    <div class="col-md-12 long-multiselect__outer" style="width: 100%; height:245px; overflow: auto">
+      <% @categoies.each do |category| %>
+          <% @count += 1 %>
+          <div class = "col-md-4 myDivs-col">
+            <div class="input-group btn-group myDivs" id="div<%=@count.to_s%>">
+              <span class="input-group-addon">
+                  <!--i><img src='../assets/ct_home' /></i-->
+                <%- if category.name == "Cameras" %>
+                      <i><%= image_tag("camera.png")%></i>
+                    <% end-%>
+                <%- if category.name == "Home" %>
+                       <i><%= image_tag("ct_home.png")%></i>
+                    <% end-%>
+                <%- if category.name == "Computer, Handhelds & Electronics" %>
+                      <i><%= image_tag("computer.png")%></i>
+                    <% end-%>
+                <%- if category.name == "Sporting" %>
+                       <i><%= image_tag("sport.png")%></i>
+                    <% end-%>
+                <%- if category.name == "Books & Stationary" %>
+                      <i><%= image_tag("book.png")%></i>
+                    <% end-%>
+                <%- if category.name == "Fashion" %>
+                       <i><%= image_tag("fashion.png")%></i>
+                    <% end-%>
+                <%- if category.name == "Health & Beauty" %>
+                       <i><%= image_tag("helth.png")%></i>
+                    <% end-%>
+                <%- if category.name == "Baby Products" %>
+                      <i><%= image_tag("babe.png")%></i>
+                    <% end-%>
+                <%- if category.name == "Toys" %>
+                       <i><%= image_tag("toy.png")%></i>
+                    <% end-%>
+                  </span>
+              <div class= "form-control long-multiselect item-div">
+                <h5><%=category.name%></h5>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="rectangle categoryDiv nested-fields" id="subcategorydivs">
+  <div class="row sub_categories" style="display: none">
+    <!--Role sub category -->
+    <div class="col-md-12"><h4 class ="pageRole">Select Sub Category*</h4></div>
+    <div class="col-md-12 long-multiselect__outer" id="subcategory_area" style="width: 100%; height:235px; overflow: auto">
+    </div>
+  </div>
+</div>
+
+<div class="rectangle categoryDiv nested-fields" id="typeDivs">
+  <div class="row typez" style="display: none">
+    <!--Role type -->
+    <div class="col-md-12"><h4 class ="pageRole">Select Type*</h4></div>
+    <div class="col-md-12 long-multiselect__outer" id="typeArea" style="width: 100%; height:235px; overflow: auto">
+    </div>
+  </div>
+</div>

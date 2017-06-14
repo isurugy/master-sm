@@ -1,0 +1,97 @@
+<script>
+
+</script>
+
+<style>
+  .nav_sub_custom{
+    background: #2B5176;
+    min-height: 100px !important;
+  }
+  .navbar-left-custom{
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  .search-area{
+    margin-top: 25px;
+    width: 270%;
+    margin-left: 30%;
+  }
+  .alinks li a{
+      color:white;
+  }
+  .alinks li a:hover{
+    color:#bce8f1;
+    background: none;
+  }
+
+
+</style>
+
+
+<%-  if controller_name == "csl_admin" && action_name == "index"  %>
+
+    <div class="container-fluid">
+      <div id="navbar" class="navbar-collapse collapse nav_sub_custom">
+        <ul class="nav navbar-nav navbar-left navbar-left-custom alinks">
+          <li><%= link_to "roles", usr_roles_path %></li>
+          <li><%= link_to "Permissions", usr_permissions_path %></li>
+          <li><%= link_to "Tags", prd_tags_path %></li>
+          <li><%= link_to "SmartMall", prd_items_path, target: '_blank' %></li>
+        </ul>
+      </div>
+    </div>
+
+<%-  elsif controller_name == "usr_roles" && (action_name == "index" || action_name == "new")  %>
+
+        <div class="container-fluid">
+          <div id="navbar" class="navbar-collapse collapse nav_sub_custom">
+            <ul class="nav navbar-nav navbar-left navbar-left-custom alinks">
+              <li><%= link_to "BACK", csl_admin_index_path %></li>
+              <li><%= link_to "Permissions", usr_permissions_path %></li>
+              <li><%= link_to "SmartMall", prd_items_path, target: '_blank' %></li>
+            </ul>
+          </div>
+        </div>
+
+<%-  elsif controller_name == "usr_permissions" && (action_name == "index" || action_name == "new")  %>
+
+    <div class="container-fluid">
+      <div id="navbar" class="navbar-collapse collapse nav_sub_custom">
+        <ul class="nav navbar-nav navbar-left navbar-left-custom alinks">
+          <li><%= link_to "BACK", csl_admin_index_path %></li>
+          <li><%= link_to "Roles", usr_roles_path %></li>
+          <li><%= link_to "SmartMall", prd_items_path, target: '_blank' %></li>
+        </ul>
+      </div>
+    </div>
+
+<%-  elsif controller_name == "prd_tags" && (action_name == "index" || action_name == "new" || action_name == "show" || action_name == "edit")  %>
+
+    <div class="container-fluid">
+      <div id="navbar" class="navbar-collapse collapse nav_sub_custom">
+        <ul class="nav navbar-nav navbar-left navbar-left-custom alinks">
+          <li><%= link_to "BACK", csl_admin_index_path %></li>
+          <li><%= link_to "SmartMall", prd_items_path, target: '_blank' %></li>
+        </ul>
+      </div>
+    </div>
+
+
+<%else%>
+    <div class="container-fluid">
+      <div id="navbar" class="navbar-collapse collapse nav_sub_custom">
+        <ul class="nav navbar-nav navbar-left navbar-left-custom alinks">
+
+          <li><%= link_to " ", prd_items_path, class: 'glyphicon glyphicon-home btn btn-lg' %></li>
+
+        </ul>
+
+        <!--<form class="form-inline">-->
+        <!--<div class="col-md-5 search-area">-->
+        <!--<input class="form-control mr-md-2 main_search" type="text" placeholder="Search" aria-describedby="sizing-addon3">-->
+        <!--<button class="btn btn-outline-success my-2 my-sm-0 main-search-btn" type="submit"> <span class="glyphicon glyphicon-search"></span></button>-->
+        <!--</div>-->
+        <!--</form>-->
+      </div>
+    </div>
+<%end%>

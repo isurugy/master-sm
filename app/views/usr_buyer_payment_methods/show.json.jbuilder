@@ -1,0 +1,1 @@
+json.partial! "usr_buyer_payment_methods/usr_buyer_payment_method", usr_buyer_payment_method: @usr_buyer_payment_method

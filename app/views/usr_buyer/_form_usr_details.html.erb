@@ -1,0 +1,170 @@
+<script>
+    $(document).ready(function() {
+        $('#form_user_details_submit').on('click', function() { $('#form_user_details').submit(); });
+    });
+</script>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.getElementById("blah").style.display = 'block';
+                document.getElementById("uploadarea").style.color = "white";
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(150);
+                document.getElementById("imagedragtxt").style.display = 'none';
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    var imageLoader = document.getElementById('usr_contact_image');
+    imageLoader.addEventListener('change', handleImage, false);
+
+    function handleImage(e) {
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            $('.uploader img').attr('src',event.target.result);
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    }
+
+</script>
+<style>
+  .uploader {
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
+    overflow:hidden;
+    width:150px;
+    height:150px;
+    background: url("http://www.elckerlijc.com/wp-content/uploads/2016/12/portret.png") center center;
+    border: 4px;
+  }
+
+  #usr_contact_image{
+    position:absolute;
+    align-items: center;
+    width:300px;
+    height:400px;
+    top:-50px;
+    left:0;
+    z-index:2;
+    opacity:0;
+    cursor:pointer;
+  }
+
+  .uploader img{
+    position:absolute;
+    width:302px;
+    height:302px;
+    top:-1px;
+    left:-1px;
+    z-index:1;
+    border:none;
+  }
+  .inputs{
+    padding-bottom: 10px;
+    border-color: #44caff;
+    border-width: 2px;
+    height:35px;
+  }
+</style>
+
+
+<%= form_for @user_contact, url: {action: "update"} do |f| %>
+    <%= devise_error_messages! %>
+    <div class="row">
+      <div class="col-sm-3">
+
+      </div>
+      <div class="col-sm-7" style="padding-left: 100px;padding-bottom: 10px">
+        <h2 style="margin-bottom: 20px;">Your Details</h2>
+      </div>
+      <div class="col-sm-2" style="padding-left: 30px;padding-top:20px">
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div id="uploadarea" class="uploader" onclick="$('#usr_contact_image').click()">
+          <input type="file" name="image"  id="filePhoto" onchange="readURL(this)"  style="display: none"/>
+          <%= f.file_field :image, :onchange=>'readURL(this)' %>
+          <img id="blah" src="#" alt="image" style="display: none;"/>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group buyer-inputs">
+          <%= f.text_field :first_name, class: "form-control inputs",placeholder:"First Name" %>
+        </div>
+        <div class="form-group buyer-inputs">
+          <%= f.text_field :dob, id: "datepicker1", class: "form-control inputs",placeholder:"Birth Day" %>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group buyer-inputs">
+          <%= f.text_field :last_name, class: "form-control inputs",placeholder:"Last Name" %>
+        </div>
+        <div class="form-group buyer-inputs" style="height:34px;padding-top:5px">
+          <div class="col-sm-6">
+            <%= f.radio_button :gender, "male" %> Male
+          </div>
+          <div class="col-sm-6">
+            <%= f.radio_button :gender, "female" %> Female
+          </div>
+        </div>
+        <div class="form-group buyer-inputs">
+          <%= f.text_field :mobile, class: "form-control inputs",placeholder:"Mobile Number" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <center><h2 style="margin-bottom: 20px;">Billing Address</h2></center>
+    </div>
+    <div class = "row">
+      <div class="tasks">
+        <%= f.fields_for :usr_buyer_billing_addresses do |billing_add| %>
+          <%= render 'usr_buyer_billing_address_fields', f: billing_add  %>
+        <% end %>
+      </div>
+    </div>
+    <%= link_to_add_association 'Add Task', f, :usr_buyer_billing_addresses, class: 'btn btn-primary', data: { association_insertion_node: '.tasks', association_insertion_method: :append } %>
+    <div class="row">
+      <center><h2 style="margin-bottom: 20px;">Delivery Address</h2></center>
+    </div>
+    <div class = "row">
+      <div class="tasks1">
+        <%= f.fields_for :usr_buyer_delivery_addresses do |delivery_add| %>
+            <%= render 'usr_buyer_delivery_address_fields', f: delivery_add  %>
+        <% end %>
+      </div>
+    </div>
+    <%= link_to_add_association 'Add Task', f, :usr_buyer_delivery_addresses, class: 'btn btn-primary', data: { association_insertion_node: '.tasks1', association_insertion_method: :append } %>
+    <div class="row">
+      <center><h2 style="margin-bottom: 20px;">Payment Method</h2></center>
+    </div>
+    <div class = "row">
+      <div class="tasks2">
+        <%= f.fields_for :usr_buyer_payment_methods do |payment_method| %>
+            <%= render 'usr_buyer_payment_method_fields', f: payment_method  %>
+        <% end %>
+      </div>
+    </div>
+    <%= link_to_add_association 'Add Task', f, :usr_buyer_payment_methods, class: 'btn btn-primary', data: { association_insertion_node: '.tasks2', association_insertion_method: :append } %>
+
+    <button id="form_user_details_submit" class="btn btn-primary" style="width:100px;align-content: right" >Save</button>
+
+
+
+<% end %>
+
+

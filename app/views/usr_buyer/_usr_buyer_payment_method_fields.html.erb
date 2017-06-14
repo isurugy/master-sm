@@ -1,0 +1,18 @@
+<div class="raw">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.text_field :card_name, class: "form-control inputs",placeholder:"Name On Card" %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field :expiry_date, class: "form-control inputs",placeholder:"Expiry Date: mm/yy",onfocus:"(this.type='month')", onblur:"(this.type='text')" %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.text_field :card_number, class: "form-control inputs",placeholder:"Card Number" %>
+    </div>
+    <div class="form-group">
+      <%= f.text_field :cvv, class: "form-control inputs",placeholder:"CVV" %>
+    </div>
+  </div>
+</div>

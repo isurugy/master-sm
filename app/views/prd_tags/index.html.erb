@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Prd Tags</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @prd_tags.each do |prd_tag| %>
+      <tr>
+        <td><%= prd_tag.name %></td>
+        <td><%= link_to 'Show', prd_tag %></td>
+        <td><%= link_to 'Edit', edit_prd_tag_path(prd_tag) %></td>
+        <td><%= link_to 'Destroy', prd_tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Prd Tag', new_prd_tag_path %>

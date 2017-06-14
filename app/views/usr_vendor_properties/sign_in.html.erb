@@ -1,0 +1,117 @@
+<style>
+  .sign-form1{
+    width: 700px;
+  }
+  .sign-form2{
+    width: 300px;
+  }
+  .btn-merchant-sign-in{
+    font-size: 23px;
+    background-color: #efc511;
+    color: #ffffff;
+    width:180px;
+    float:left;
+    margin-left: 175px;
+    margin-bottom: 40px;
+    font-family: 'Homenaje';
+
+  }
+
+  .remember-merchant{
+    padding-top: 30px;
+    margin-left: -235px;
+  }
+
+  #vertical-line-merchant{
+    background-color: rgba(46, 47, 48, 0.26);
+    margin-top: 48px;
+    height: 300px;
+    margin-left: -58px;
+  }
+
+  @media only screen and (max-width: 991px) {
+    .sign-form1 {
+      width: 400px;
+    }
+
+    .sign-form2 {
+      width: 200px;
+    }
+  }
+  @media only screen and (max-width: 1200px) {
+    .sign-form1 {
+      width: 500px;
+    }
+
+    .sign-form2 {
+      width: 250px;
+    }
+
+    .btn-merchant-sign-in{
+      margin-left: 125px;
+    }
+    .remember-merchant{
+      margin-left: -135px;
+    }
+  }
+
+  .field-merchant-sign-in{
+    width:50%;
+    border-color: #EFC511;
+    border-width: 2px;
+    margin-bottom: 30px;
+    font-size: 18px;
+    height: 40px;
+  }
+  .field-merchant-sign-in:focus {
+    border-color: #EFC511;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(239, 197, 17, 0.6);
+    outline: 0 none;
+  }
+  #heading-login-merchant{
+    font-size:40px;
+    font-family: 'Homenaje';
+    color:#5ea1f6;
+    padding-bottom: 40px;
+    font-weight: 600;
+    padding-top: 20px;
+  }
+</style>
+
+<center><p id="heading-login-merchant">LOGIN TO YOUR PAGE</p></center>
+
+<div class="container">
+  <center>
+    <div class="well"  style="height:auto;display: inline-flex;margin-bottom: 50px">
+      <div class="sign-form1" style="margin-top: 100px">
+          <div class="form-group">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class="field">
+                <%= f.email_field :email, autofocus: true, class:"form-control field-merchant-sign-in", placeholder:'E-Mail Address' %>
+              </div>
+
+              <div class="field">
+                <%= f.password_field :password, autocomplete: "off",class:"form-control field-merchant-sign-in", placeholder:'Password' %>
+              </div>
+
+              <% if devise_mapping.rememberable? -%>
+                  <div class="field remember-merchant">
+                    <%= f.check_box :remember_me %>
+                    <%= f.label :remember_me %>
+                  </div>
+              <% end -%>
+              <div class="actions">
+                <%= f.submit "SIGN IN", class:"btn btn-merchant-sign-in" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div>
+          <img id="vertical-line-merchant" width="2px" >
+        </div>
+        <div class="sign-form2" style="margin-top: 125px">
+          <%= image_tag 'Merchant Login - Paddlock.png' %>
+        </div>
+      </div>
+  </center>
+</div>

@@ -1,0 +1,37 @@
+<%= form_for(usr_buyer_payment_method) do |f| %>
+  <% if usr_buyer_payment_method.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(usr_buyer_payment_method.errors.count, "error") %> prohibited this usr_buyer_payment_method from being saved:</h2>
+
+      <ul>
+      <% usr_buyer_payment_method.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :card_name %>
+    <%= f.text_field :card_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :encrypted_card_number %>
+    <%= f.text_field :card_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :encrypted_cvv %>
+    <%= f.text_field :cvv %>
+  </div>
+
+  <div class="field">
+    <%= f.label :encrypted_expiry_date %>
+    <%= f.text_field :expiry_date %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

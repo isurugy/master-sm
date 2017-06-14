@@ -1,0 +1,60 @@
+<script>
+    $( function() {
+        $( "#datepicker" ).datepicker();
+    } );
+    $( function() {
+        $( "#datepicker1" ).datepicker();
+    } )
+    $( function() {
+        $( "#datepicker2" ).datepicker();
+    } )
+</script>
+
+<style>
+
+  .form-merchant{
+    padding-bottom: 10px;
+  }
+  .buyer-input{
+    border-color: #44caff;
+    border-width: 2px;
+  }
+  .heading-buyer{
+    color: #cc4756;
+    font-weight: bold;
+    font-size: 40px;
+    font-weight: 100;
+    font-family: Sans-Serif;
+    margin-left: 40px;
+
+
+  }
+  .subheading-buyer{
+    color: #c24ccc;
+    font-size: 25px;
+    font-family: Sans-Serif;
+    margin-top: -5px;
+    padding-top: 40px;
+    margin-right: 50px;
+  }
+  .well{
+    margin-bottom: 1px;
+  }
+</style>
+
+
+
+
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+  <div class="row">
+    <div style="clear: both">
+      <h1 style="float: left"class="heading-buyer">Hi <%= @name[0][0,10] %></h1>
+      <h2 style="float: right" class="subheading-buyer">Give us few details help you enjoy all of Smart Mall </h2>
+    </div>
+  </div>
+  <div class = "well" style="padding-bottom: 190px">
+    <%= render "usr_buyer/form_usr_details" %>
+  </div>
+</div>

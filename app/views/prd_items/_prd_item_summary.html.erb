@@ -1,0 +1,179 @@
+<style>
+  .getting-started-btn{
+    background: #53a2f5;
+    color: white;
+  }
+    .spam-custom{
+      background: transparent;
+      border-bottom: none;
+      border-top: none;
+      border-left: none;
+      padding: 4px;
+    }
+
+  .item-div-custom{
+    margin-left: -4px;
+    padding: 10px;
+    min-height: 60px !important;
+    display: inline-flex !important;
+  }
+  .myDivs-col-custom{
+    height: 62px !important;
+  }
+
+  .glyphicon-menu-right {
+    margin-top: 4px;
+    font-size: 26px;
+    font-weight: lighter;
+  }
+.select-type-h5{
+  margin-right: 130px;
+  margin-left: 10px;
+}
+
+  #type_breadcrumb .input-group-addon{
+    padding: 0px 1px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    /* background-color: #1d1414; */
+    /* border: 1px solid #ccc; */
+    border-radius: 4px;
+  }
+
+</style>
+
+<script>
+
+    function search_type() {
+        var value = document.getElementById("type_search").value;
+        var formattedValue = capitalizeFirstLetter(value);
+        getTypeBreadcrumb(formattedValue);
+    }
+
+  function  getTypeBreadcrumb(value){
+          $.ajax({
+              type:"GET",
+              url:"get_type_breadcrumb",
+              dataType:"json",
+              data: {SeachedType: value},
+              success:function(result){
+                  //alert(result);
+                  setBreadcrumb(result);
+              }
+          });
+  }
+
+  // make first letter capital of the searching words
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// show breadcrumb results
+function setBreadcrumb(result){
+    $('#type_breadcrumb').html(""); // set always empty the display area when click getStarted button
+
+    if(result.length == 0){
+        $('#type_breadcrumb').append("<div><h7> No result found</h7></div>");
+    }
+    else{
+        for (var i = 0; i < result.length; i++) {
+            var values = result[i].split("~");
+            var type_name = values[0];
+            var subcategory_name = values[1];
+            var category_name = values[2];
+            var type_id  = values[3];
+            var image;
+
+            switch(category_name) {
+                case "Cameras" :
+                    image= "camera.png";
+                    break;
+                case "Home" :
+                    image= "ct_home.png";
+                    break;
+                case "Computer, Handhelds & Electronics":
+                    image= "computer.png";
+                    break;
+                case "Sporting":
+                    image= "sport.png";
+                    break;
+                case "Books & Stationary":
+                    image= "book.png";
+                    break;
+                case "Fashion":
+                    image= "fashion.png";
+                    break;
+                case "Health & Beauty":
+                    image= "helth.png";
+                    break;
+                case "Baby Products":
+                    image= "babe.png";
+                    break;
+                case "Toys":
+                    image= "toy.png";
+                    break;
+            }
+
+            $('#type_breadcrumb').append("<div class = 'myDivs-col myDivs-col-custom'>"+
+                "<div class='input-group btn-group myDivs'>"+
+                "<span class='input-group-addon spam-custom'><i>"+
+                 // icon should display here
+                "</i></span>"+
+                "<div class= 'form-control long-multiselect item-div item-div-custom'>"+
+                "<h5 class='select-type-h5'>"+type_name +"</h5>"+
+                "<span class='glyphicon glyphicon-menu-right'></span>"+
+                "<h5 class='select-type-h5'>"+subcategory_name+"</h5>"+
+                "<span class='glyphicon glyphicon-menu-right'></span>"+
+                "<h5 class='select-type-h5'>"+category_name+"</h5>"+
+                "<h6 style='display: none' class='select-type-h5'>"+type_id+"</h6>"+
+                "</div>"+
+                "</div>"+
+                "</div>");
+        }
+    }
+    document.getElementById("searchedTypesMainDiv").style.display = 'block'; // make display visible the main div
+}
+
+//toggle search and select type areas
+function displayCategoryArea() {
+    document.getElementById("prd_categoty_area").style.display = 'block'; // make display visible the main div
+    document.getElementById("prd_summery_area").style.display = 'none'; // make display visible the main div
+}
+
+</script>
+
+<div class="row">
+  <div style="text-align: center; padding-bottom: 25px">
+    <h2 class ='cat-heading'>ITEM SUMMARY</h2>
+  </div>
+</div>
+<div class = "row">
+  <form class="navbar-form navbar-left">
+    <div class="input-group search-area">
+      <input id="type_search" type="text" class="form-control" placeholder="T-Shirts, HeadPhones, etc..">
+      <div class="input-group-btn">
+        <button id="search_type_btn" type="button" class="btn btn-default getting-started-btn" onclick="search_type()">GET STARTED</button>
+      </div>
+    </div>
+    <div class="">
+      <h7>Type a title that will suite your product</h7>
+    </div>
+  </form>
+</div>
+<div class="rectangle categoryDiv nested-fields" id="searchedTypesMainDiv" style="display: none">
+  <div class="row">
+    <div class="col-md-12"><h4 class ="pageRole">Select Type</h4></div>
+    <div id="type_breadcrumb" class="col-md-12 long-multiselect__outer" style="width: 100%; height:245px; overflow: auto">
+
+      <!--breadcrumb will append here-->
+
+    </div>
+  </div>
+  <div style="display: inline-flex">
+    <h7 style = "margin-right: 30px; margin-top: 10px;">Can't find your type, Browse all</h7>
+    <button id="switchToBrowse" type="button" class="btn btn-default getting-started-btn" onclick="displayCategoryArea()">CATEGORIES</button>
+  </div>
+</div>

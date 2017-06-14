@@ -1,0 +1,139 @@
+<script>
+    // documnet .ready function
+    $( document ).ready(function() {
+    });
+    // return selected tags
+    function getSelectedTags(){
+        var txt = $('#selectedTags p').text();
+        alert(txt);
+    }
+
+    // functions for drag and drop
+    function dragStart(event) {
+        event.dataTransfer.setData("Text", event.target.id);
+       // document.getElementById("demo").innerHTML = "Started to drag the p element";
+    }
+
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drop(event) {
+        event.preventDefault();
+        var data = event.dataTransfer.getData("Text");
+        event.target.appendChild(document.getElementById(data));
+       // document.getElementById("demo").innerHTML = "The p element was dropped";
+    }
+
+</script>
+<style>
+
+  p.file_field {
+    border: 2px solid #66c2ff;
+  }
+
+  p.heading_details{
+    color: #a3297a;
+    font-size: 20px;
+  }
+  hr.costomize{
+    border-top: 2px solid #d5d2d2;
+  }
+
+  h1.main_heading{
+    color: #ff4d4d;
+    font-size: 50px !important;
+    font-weight: 100 !important;
+  }
+
+.same_line{
+  display: inline;
+}
+
+  .file_field_div {
+    border: 2px solid #66c2ff;
+  }
+
+  .droptarget {
+    float: left;
+    width: 360px;
+    height: 38px;
+    margin-right: 15px;
+    padding: 10px;
+    border: 2px solid #66c2ff;
+  }
+
+</style>
+
+<h1 class="main_heading">MERCHANT REGISTRATION</h1>
+<p class="heading_details"> Give us few details to set you up! Your page will be rady in no time.</p>
+<h3>SHOP DETAILS</h3>
+<%= form_for :post, url: usr_vender_index_path do |f| %>
+    <div class="row">
+      <div class="col-xs-6 ">
+        <p class="file_field">
+          <%=f.text_field :name,{:class => 'form-control', :placeholder => 'Your Shop Name'} %>
+        </p>
+      </div>
+    </div>
+      <p class="file_field">
+        <%=f.text_field :price,{:class => 'form-control', :placeholder => 'Street Address 1'} %>
+      </p>
+
+      <p class="file_field">
+        <%=f.text_field :color,{:class => 'form-control', :placeholder => 'Street Address 2'} %>
+      </p>
+      <div class="row">
+        <div class="col-xs-6 ">
+          <p class="file_field">
+            <%=f.text_field :price,{:class => 'form-control', :placeholder => 'City'} %>
+          </p>
+        </div>
+        <div class="col-xs-6 ">
+          <p class="file_field">
+            <%=f.text_field :color,{:class => 'form-control', :placeholder => 'Postal Code'} %>
+          </p>
+        </div>
+        <div class="col-xs-6 ">
+          <p class="file_field">
+            <%=f.text_field :price,{:class => 'form-control', :placeholder => 'Country'} %>
+          </p>
+        </div>
+        <div class="col-xs-6 ">
+          <p class="file_field">
+            <%=f.text_field :color,{:class => 'form-control', :placeholder => 'Phone Number'} %>
+          </p>
+        </div>
+        <div class="col-xs-6 ">
+          <p class="file_field">
+            <%=f.text_field :color,{:class => 'form-control', :placeholder => 'WebSite(optional)'} %>
+          </p>
+        </div>
+      </div>
+      <hr class="costomize"/>
+      <div class="form-group">
+        <%= f.submit({:value=>'Register',:class => 'btn btn-primary'})%>
+      </div>
+<% end %>
+
+<h3>ADDITIONAL USER</h3>
+<%= form_for :post_shop, url: usr_vender_index_path do |f| %>
+    <div class="row">
+      <div class="col-xs-4 ">
+        <p class="file_field">
+          <%=f.text_field :name,{:class => 'form-control', :placeholder => 'email'} %>
+        </p>
+      </div>
+      <div class="droptarget col-xs-4 file_field_div form-control" id="selectedTags" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+      <div class="droptarget col-xs-4 file_field_div form-control" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <p class = 'same_line' ondragstart="dragStart(event)" draggable="true" id="role1">Role1</p>
+        <p class = 'same_line' ondragstart="dragStart(event)" draggable="true" id="role2">Role2</p>
+        <p class = 'same_line' ondragstart="dragStart(event)" draggable="true" id="role3">Role3</p>
+        <p class = 'same_line' ondragstart="dragStart(event)" draggable="true" id="role4">Role4</p>
+      </div>
+      <button onclick="getSelectedTags()"> click</button>
+    </div>
+<% end %>
+
+

@@ -1,0 +1,2 @@
+module UsrPermissionsHelper
+end

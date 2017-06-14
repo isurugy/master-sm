@@ -1,0 +1,87 @@
+
+<style>
+  .hr-custom {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-top: 1px solid #4b4b4b;
+    margin-left: -14px;
+    margin-right: -14px;
+    height: 1px;
+  }
+</style>
+
+<div class="container" style="padding-top: 1cm; background-color: #e5e5e5; ">
+
+  <div id = "prd_summery_area" class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+      <%= render "prd_item_summary" %>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
+
+  <div id="prd_categoty_area" class="row" style = "display:none" >
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+      <%= render "prd_item_category" %>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
+  <hr class ="hr-custom">
+
+  <%= form_for(@item) do |p| %>
+
+
+<!----------------------------------- partial view ------------------------------------------>
+
+      <%= render(:partial => 'form', :locals => {:p => p})%>
+
+<!----------------------------------- partial view End -------------------------------------->
+
+      <div class="row" style="padding-top: 30px">
+        <div class="col-sm-6" style="text-align: right; padding-bottom: 25px; padding-right: 35px">
+          <!--%= p.button  "CANCEL", class: "btn cancel_btn btn-lg", style:'width:200px'%-->
+          <%= link_to "CANCEL", usr_vendor_property_path(@vendor_id), class:'btn cancel_btn btn-lg'%>
+        </div>
+        <div class="col-sm-6" style="padding-bottom: 25px; padding-left: 20px">
+          <%= p.submit "ADD PRODUCT", class: "btn add_product_btn btn-lg", style:'width:200px' %>
+        </div>
+      </div>
+      <div class="row" style="padding-bottom: 100px">
+
+      </div>
+
+  <% end %>
+
+  <style>
+    .cancel_btn {
+      background-color: #ffc11e;
+      color: white !important;
+      font-family: "Anton";
+      width: 200px;
+    }
+
+    .cancel_btn:hover {
+      background-color: #ffaf0d;
+      color: #040302 !important;
+    }
+    .add_product_btn {
+      background-color: #1b89ff;
+      color: white;
+      font-family: "Anton";
+    }
+
+    @media (min-width:992px) {
+      .contain {
+        padding-right: 52px;
+        padding-left: 35px;
+      }
+    }
+
+  </style>
+
+</div>

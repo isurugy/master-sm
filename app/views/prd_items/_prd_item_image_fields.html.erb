@@ -1,0 +1,133 @@
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.getElementById("blah").style.display = 'block';
+                document.getElementById('blah').style.display = 'block';
+                document.getElementById("uploadarea").style.color = "white";
+
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(180)
+                    .height(180);
+                document.getElementById("imagedragtxt").style.display = 'none';
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    var imageLoader = document.getElementById('prd_item_prd_item_images_attributes_0_image');
+    imageLoader.addEventListener('change', handleImage, false);
+
+    function handleImage(e) {
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            $('.uploader img').attr('src',event.target.result);
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    }
+
+
+    //------------------- Auto click link to add association -----------------//
+
+   /* $(".item_img").change(function(){
+        alert("Image selected.");
+        document.getElementById('sha').click();
+    });  */
+
+    //-----------------End auto click link to add association ----------------//
+
+
+
+</script>
+
+<style>
+  .uploader {
+    position:relative;
+    overflow:hidden;
+    width:180px;
+    height:180px;
+    background: snow;
+    border:2px solid #44caff;
+  }
+
+  .item_img{
+    position:absolute;
+    width:180px;
+    height:180px;
+    top:-50px;
+    left:0;
+    z-index:2;
+    opacity:0;
+    cursor:pointer;
+  }
+
+  .uploader img{
+    position:absolute;
+    width:180px;
+    height:200px;
+    top:-1px;
+    left:-1px;
+    z-index:1;
+    border:none;
+  }
+
+  .input_border{
+    border-color: #44caff;
+    border-width: 2px;
+  }
+  .description_input_border{
+    border-top: none;
+    border-color: #44caff;
+    border-width: 2px;
+  }
+
+
+  .image_box {
+    position:absolute;
+    width:302px;
+    height:352px;
+    top:-1px;
+    left:-1px;
+    z-index:1;
+    border:none;
+  }
+
+  .add-padding {
+    padding-left: 165px;
+  }
+
+
+  .edit_test {
+    width: 260px !important;
+    height: 150px !important;
+  }
+
+
+</style>
+
+
+<div class="nested-fields" >
+  <div class="col-md-3">
+    <%= link_to_remove_association " ", f, class: 'glyphicon glyphicon-remove add-padding'%>
+    <div id="uploadarea" class="uploader" onclick="$('#test').click()">
+      <div id="imagedragtxt"></div>
+
+
+      <%= f.file_field :image, :onchange=>'readURL(this)', class:'item_img' %>
+      <%= image_tag 'image-add.png', size: '180x180'%>
+
+      <% if f.object.image? %>
+          <% @count= @count+1%>
+          <%= image_tag f.object.image, class: 'edit_test' , id: 'img-'+@count.to_s%>
+
+      <% end %>
+
+      <img id="blah" class = "image_display" src="#" alt="image" style="display: none;"/>
+    </div>
+    <%= f.text_area(:description, {placeholder: 'Add short description about your image', class: 'form-control description_input_border', size: "8x1", style:'width:180px; text-align: center;'})%>
+  </div>
+</div>

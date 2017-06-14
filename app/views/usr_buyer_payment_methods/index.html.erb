@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Usr Buyer Payment Methods</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Card name</th>
+      <th>Encrypted card number</th>
+      <th>Encrypted cvv</th>
+      <th>Encrypted expiry date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @usr_buyer_payment_methods.each do |usr_buyer_payment_method| %>
+      <tr>
+        <td><%= usr_buyer_payment_method.card_name %></td>
+        <td><%= usr_buyer_payment_method.encrypted_card_number %></td>
+        <td><%= usr_buyer_payment_method.encrypted_cvv %></td>
+        <td><%= usr_buyer_payment_method.encrypted_expiry_date %></td>
+        <td><%= link_to 'Show', usr_buyer_payment_method %></td>
+        <td><%= link_to 'Edit', edit_usr_buyer_payment_method_path(usr_buyer_payment_method) %></td>
+        <td><%= link_to 'Destroy', usr_buyer_payment_method, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Usr Buyer Payment Method', new_usr_buyer_payment_method_path %>

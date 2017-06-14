@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  specifiedArea: MyString
+  mobile: MyString
+  shopId: 1
+
+two:
+  specifiedArea: MyString
+  mobile: MyString
+  shopId: 1

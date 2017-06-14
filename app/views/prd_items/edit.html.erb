@@ -1,0 +1,21 @@
+<div class="container" style="padding-top: 1cm; background-color: #e5e5e5; ">
+  <%= form_for(@item) do |p| %>
+
+
+      <!----------------------------------- partial view ------------------------------------------>
+
+      <%= render(:partial => 'form', :locals => {:p => p})%>
+
+      <!----------------------------------- partial view End -------------------------------------->
+
+      <div class="row" style="padding-top: 30px">
+        <div class="col-sm-6" style="text-align: right; padding-bottom: 25px; padding-right: 20px">
+          <%= p.button  "CANCEL", class: "btn btn-warning btn-lg"%>
+        </div>
+        <div class="col-sm-6" style="padding-bottom: 25px; padding-left: 20px">
+          <%= p.submit "UPDATE", class: "btn btn-info btn-lg" %>
+        </div>
+      </div>
+
+  <% end %>
+</div>
